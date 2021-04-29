@@ -17,7 +17,11 @@ namespace VisualComputing2
 {
     public partial class Form1 : Form
     {
-        Graphics g; 
+        Graphics g;
+        SolidBrush brush;
+        Pen pen;
+
+        List<Entity> entities = new List<Entity>();
 
         public Form1()
         {
@@ -25,6 +29,12 @@ namespace VisualComputing2
             DoubleBuffered = true;
             Application.Idle += HandleApplicationIdle;
             g = this.CreateGraphics();
+            brush = new SolidBrush(Color.Black);
+            pen = new Pen(brush);
+            entities.Add(new Entity(new Vector2(30, 30), true, Entity.Shape.Sphere, 10f));
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
 
         // https://gamedev.stackexchange.com/questions/67651/what-is-the-standard-c-windows-forms-game-loop
@@ -59,13 +69,47 @@ namespace VisualComputing2
 
         new void Update()
         {
-        
+
         }
 
         void Render()
         {
-        
+            Bitmap bufl = new Bitmap(this.Width, this.Height);
+            using (Graphics g = Graphics.FromImage(bufl))
+            {
+                g.FillRectangle(Brushes.White, new Rectangle(0, 0, this.Width, this.Height));
+                foreach (Entity entity in entities)
+                {
+                    if (entity.EShape == Entity.Shape.Sphere)
+                    {
+                        g.FillEllipse(new SolidBrush(Color.Black), entity.Position.X - entity.Radius, entity.Position.Y - entity.Radius, entity.Diameter(), entity.Diameter());
+                    }
+                }
+                this.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+            }
+
+            //g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0,0, Size.Width, Size.Height));
+            
+            
+
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            foreach (Entity entity in entities) 
+            {
+                entity.Update();
+            }
+        }
+
+        private void accelerationBar_Scroll(object sender, EventArgs e)
+        {
+            entities[0].Acceleration = new Vector2(accelerationBar.Value, 0);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

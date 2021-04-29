@@ -7,19 +7,45 @@ using System.Numerics;
 
 namespace VisualComputing2
 {
-    abstract class Entity
+    public class Entity
     {
-        Vector2 position;
-        Vector2 speed;
-        Vector2 acceleration;
+        //Material material;
+        public Vector2 Position { get; set; }
+        Vector2 velocity;
+        public Vector2 Acceleration { get; set; }
         float rotation;
         float mass;
         bool canMove;
+        public Shape EShape { get; }
 
-        public abstract void Draw();
+        public float Radius { get; }
 
-        public abstract void Update();
 
+        public enum Shape 
+        {
+            Sphere,
+            Rectangle
+        }
+
+        public Entity(Vector2 pos, bool canMove, Shape shape, float radius) 
+        {
+            Position = pos;
+            this.canMove = canMove;
+            EShape = shape;
+            Radius = radius;
+        }
+
+        public float Diameter() 
+        {
+            return Radius * 2;
+        }
+
+        public void Update() 
+        {
+            
+            velocity += Acceleration * 0.1f;
+            Position += velocity * 0.1f;
+        }
 
     }
 }
