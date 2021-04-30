@@ -20,27 +20,38 @@ namespace VisualComputing2
         Graphics g;
         SolidBrush brush;
         Pen pen;
+        Bitmap bufl;
+
+        float timerInterval;
+        public static float gravity = 9.81f;
 
         List<Entity> entities = new List<Entity>();
+        Entity selectedEntity;
+
+        bool enableDebug;
 
         public Form1()
         {
             InitializeComponent();
             DoubleBuffered = true;
             Application.Idle += HandleApplicationIdle;
-            g = this.CreateGraphics();
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
+
             entities.Add(new Entity(new Vector2(30, 30), true, Entity.Shape.Sphere, 10f));
+
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            timerInterval = timer1.Interval;
+            enableDebug = enableDebugDrawCheck.Checked;
+            bufl = new Bitmap(this.Width, this.Height);
         }
 
         // https://gamedev.stackexchange.com/questions/67651/what-is-the-standard-c-windows-forms-game-loop
-        void HandleApplicationIdle (object sender, EventArgs e) 
+        void HandleApplicationIdle(object sender, EventArgs e)
         {
-            while(IsApplicationIdle()) 
+            while (IsApplicationIdle())
             {
                 Update();
                 Render();
@@ -69,20 +80,36 @@ namespace VisualComputing2
 
         new void Update()
         {
-
+            if(selectedEntity == null) 
+            {
+                posXBox.Clear();
+                posYBox.Clear();
+                velXBox.Clear();
+                velYBox.Clear();
+            } else
+            {
+                posXBox.Text = selectedEntity.Position.X.ToString();
+                posYBox.Text = selectedEntity.Position.Y.ToString();
+                velXBox.Text = selectedEntity.Velocity.X.ToString();
+                velYBox.Text = selectedEntity.Velocity.Y.ToString();
+            }
         }
 
         void Render()
         {
-            Bitmap bufl = new Bitmap(this.Width, this.Height);
-            using (Graphics g = Graphics.FromImage(bufl))
+            
+            using (g = Graphics.FromImage(bufl))
             {
                 g.FillRectangle(Brushes.White, new Rectangle(0, 0, this.Width, this.Height));
                 foreach (Entity entity in entities)
                 {
                     if (entity.EShape == Entity.Shape.Sphere)
                     {
-                        g.FillEllipse(new SolidBrush(Color.Black), entity.Position.X - entity.Radius, entity.Position.Y - entity.Radius, entity.Diameter(), entity.Diameter());
+                        g.FillEllipse(Brushes.Black, entity.Position.X - entity.Radius, entity.Position.Y - entity.Radius, entity.Diameter(), entity.Diameter());
+                    }
+                    if (entity.canMove && enableDebug) 
+                    {
+                        g.DrawLine(Pens.Magenta, entity.Position.X, entity.Position.Y, entity.Position.X + entity.Velocity.X, entity.Position.Y + entity.Velocity.Y);
                     }
                 }
                 this.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
@@ -98,18 +125,37 @@ namespace VisualComputing2
         {
             foreach (Entity entity in entities) 
             {
-                entity.Update();
+                entity.Update(timerInterval);
             }
         }
 
-        private void accelerationBar_Scroll(object sender, EventArgs e)
+        private void EnableDebugDraw_CheckedChanged(object sender, EventArgs e)
         {
-            entities[0].Acceleration = new Vector2(accelerationBar.Value, 0);
+            enableDebug = enableDebugDrawCheck.Checked;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_MouseClick(object sender, MouseEventArgs me) 
         {
-
+            bool eFound = false;
+            foreach (Entity entity in entities)
+            {
+                if (entity.Position.X <= me.X && entity.Position.X + entity.Radius >= me.X) 
+                {
+                    if (entity.Position.Y <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
+                    {
+                        currentObjectLabel.Text = "Current Object: " + entity.ToString();
+                        selectedEntity = entity;
+                        eFound = true;
+                        break;
+                    }
+                    
+                } continue;
+            }
+            if (!eFound) 
+            {
+                selectedEntity = null;
+                currentObjectLabel.Text = "Current Object: None";
+            }
         }
     }
 }
