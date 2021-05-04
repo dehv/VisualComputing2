@@ -111,5 +111,55 @@ namespace VisualComputing2
         {
 
         }
+
+        private void startPosition_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void small_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void big_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void yAxis_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sphere1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void angle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
