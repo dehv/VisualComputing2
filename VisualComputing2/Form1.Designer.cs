@@ -33,13 +33,13 @@ namespace VisualComputing2
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.enableDebugDrawCheck = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.posXBox = new System.Windows.Forms.TextBox();
-            this.posYBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.currentObjectLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.velYBox = new System.Windows.Forms.TextBox();
             this.velXBox = new System.Windows.Forms.TextBox();
-            this.currentObjectLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.posYBox = new System.Windows.Forms.TextBox();
+            this.posXBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,28 +78,14 @@ namespace VisualComputing2
             this.panel1.Size = new System.Drawing.Size(214, 533);
             this.panel1.TabIndex = 2;
             // 
-            // posXBox
+            // currentObjectLabel
             // 
-            this.posXBox.Location = new System.Drawing.Point(3, 87);
-            this.posXBox.Name = "posXBox";
-            this.posXBox.Size = new System.Drawing.Size(100, 20);
-            this.posXBox.TabIndex = 2;
-            // 
-            // posYBox
-            // 
-            this.posYBox.Location = new System.Drawing.Point(114, 87);
-            this.posYBox.Name = "posYBox";
-            this.posYBox.Size = new System.Drawing.Size(100, 20);
-            this.posYBox.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Position(X,Y)";
+            this.currentObjectLabel.AutoSize = true;
+            this.currentObjectLabel.Location = new System.Drawing.Point(6, 37);
+            this.currentObjectLabel.Name = "currentObjectLabel";
+            this.currentObjectLabel.Size = new System.Drawing.Size(81, 13);
+            this.currentObjectLabel.TabIndex = 8;
+            this.currentObjectLabel.Text = "Current Object: ";
             // 
             // label2
             // 
@@ -124,14 +110,28 @@ namespace VisualComputing2
             this.velXBox.Size = new System.Drawing.Size(100, 20);
             this.velXBox.TabIndex = 5;
             // 
-            // currentObjectLabel
+            // label1
             // 
-            this.currentObjectLabel.AutoSize = true;
-            this.currentObjectLabel.Location = new System.Drawing.Point(6, 37);
-            this.currentObjectLabel.Name = "currentObjectLabel";
-            this.currentObjectLabel.Size = new System.Drawing.Size(81, 13);
-            this.currentObjectLabel.TabIndex = 8;
-            this.currentObjectLabel.Text = "Current Object: ";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Position(X,Y)";
+            // 
+            // posYBox
+            // 
+            this.posYBox.Location = new System.Drawing.Point(114, 87);
+            this.posYBox.Name = "posYBox";
+            this.posYBox.Size = new System.Drawing.Size(100, 20);
+            this.posYBox.TabIndex = 3;
+            // 
+            // posXBox
+            // 
+            this.posXBox.Location = new System.Drawing.Point(3, 87);
+            this.posXBox.Name = "posXBox";
+            this.posXBox.Size = new System.Drawing.Size(100, 20);
+            this.posXBox.TabIndex = 2;
             // 
             // Form1
             // 

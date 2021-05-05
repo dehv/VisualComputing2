@@ -14,7 +14,7 @@ namespace VisualComputing2
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }
-        float rotation;
+        public float rotation;
         float mass = 1f;
         float drag = 0f;
         public bool canMove { get; set; }
@@ -25,6 +25,9 @@ namespace VisualComputing2
 
         public Color color;
 
+        public Vector2 Dimension { get; set; }
+        public Vector2[] Points;
+
 
         public enum Shape 
         {
@@ -32,17 +35,48 @@ namespace VisualComputing2
             Rectangle
         }
 
-        public Entity(Vector2 pos, bool canMove, Shape shape, float radius) 
+        //Constructor for Sphere
+        public Entity(Vector2 pos, bool canMove, float radius) 
         {
+          
             Position = pos;
             this.canMove = canMove;
-            EShape = shape;
+            EShape = Shape.Sphere;
             Radius = radius;
+        }
+
+        //Constructor for Rectangle
+        public Entity(Vector2 pos, float width, float hight, float rotation)
+        {
+            Position = pos;
+            this.canMove = false;
+            EShape = Shape.Rectangle;
+            Dimension = new Vector2(width, hight);
+            this.rotation = rotation;
+            Points = GetRectPoints();
         }
 
         public float Diameter() 
         {
             return Radius * 2;
+        }
+
+        public Vector2[] GetRectPoints()
+        {
+            Vector2[] arr = new Vector2[4];
+            arr[0] = Position - 0.5f * Dimension;
+            arr[1] = Position + 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
+            arr[2] = Position + 0.5f * Dimension;
+            arr[3] = Position - 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
+
+            double angle = rotation * Math.PI / 180;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i].Y = (float)(arr[i].Y * Math.Cos(angle) - arr[i].X * Math.Sin(angle));
+                arr[i].X = (float)(arr[i].Y * Math.Sin(angle) + arr[i].X * Math.Cos(angle));
+            }
+
+            return arr;
         }
 
         public void Update(float timerInterval) 
