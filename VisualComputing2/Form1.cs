@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 
 namespace VisualComputing2
 {
-    public partial class Form1 : Form
+    public partial class ModSimWindow : Form
     {
         Graphics g;
         SolidBrush brush;
@@ -23,7 +23,7 @@ namespace VisualComputing2
 
         List<Entity> entities = new List<Entity>();
 
-        public Form1()
+        public ModSimWindow()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -104,7 +104,7 @@ namespace VisualComputing2
 
         private void accelerationBar_Scroll(object sender, EventArgs e)
         {
-            entities[0].Acceleration = new Vector2(accelerationBar.Value, 0);
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -158,6 +158,26 @@ namespace VisualComputing2
         }
 
         private void angle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wind_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
         {
 
         }
