@@ -20,6 +20,7 @@ namespace VisualComputing2
         Graphics g;
         SolidBrush brush;
         Pen pen;
+        bool runSimulation = false;
 
         List<Entity> entities = new List<Entity>();
 
@@ -96,10 +97,15 @@ namespace VisualComputing2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            foreach (Entity entity in entities) 
+            if (runSimulation)
             {
-                entity.Update();
+                foreach (Entity entity in entities)
+                {
+                    entity.Update();
+                }
             }
+
+            
         }
 
         private void accelerationBar_Scroll(object sender, EventArgs e)
@@ -180,6 +186,12 @@ namespace VisualComputing2
         private void progressBar1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //start and pause simulation
+        private void btnStartSimulation_Click(object sender, EventArgs e)
+        {
+            runSimulation = !runSimulation;
         }
     }
 }
