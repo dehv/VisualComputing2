@@ -29,6 +29,7 @@ namespace VisualComputing2
         Entity selectedEntity;
 
         bool enableDebug;
+        public static bool useGravity = true;
 
         public Form1()
         {
@@ -38,13 +39,14 @@ namespace VisualComputing2
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
 
-            entities.Add(new Entity(new Vector2(30, 30), true, 10f));
+            entities.Add(new Entity(new Vector2(200, 500), true, 10f));
             entities.Add(new Entity(new Vector2(200, 200), 50f, 30f, 20f));
             entities.Add(new Entity(new Vector2(Width / 2, 0), Width, 20f, 0f));
             entities.Add(new Entity(new Vector2(Width / 2, Height-40), Width, 20f, 0f));
             entities.Add(new Entity(new Vector2(0, (Height-20) / 2), 20f, Height, 0f));
             entities.Add(new Entity(new Vector2(Width -20, (Height - 20) / 2), 20f, Height, 0f));
 
+            entities[0].Velocity = new Vector2(5, -40);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -127,7 +129,32 @@ namespace VisualComputing2
                             points[i] = new PointF(pointsVec[i].X, pointsVec[i].Y);
                         }
                         g.FillPolygon(Brushes.Gray, points);
-                        
+                        if (enableDebug)
+                        {
+                            for (int i = 0; i < pointsVec.Length; i++)
+                            {
+                                g.DrawString(i.ToString(), DefaultFont, Brushes.Maroon, points[i]);
+                                if(i == pointsVec.Length - 1)
+                                {
+                                    Vector2 middle = pointsVec[0] - pointsVec[i];
+                                    g.DrawLine(Pens.Red, 
+                                        pointsVec[i].X+middle.X * 0.5f,
+                                        pointsVec[i].Y+middle.Y * 0.5f,
+                                        (pointsVec[i].X + middle.X * 0.5f + entity.Normals[i].X*10),
+                                        (pointsVec[i].Y + middle.Y * 0.5f + entity.Normals[i].Y*10));
+                                }
+                                else
+                                {
+                                    Vector2 middle = pointsVec[i+1] - pointsVec[i];
+                                    g.DrawLine(Pens.Red,
+                                        pointsVec[i].X + middle.X *0.5f,
+                                        pointsVec[i].Y + middle.Y * 0.5f,
+                                        (pointsVec[i].X + middle.X * 0.5f + entity.Normals[i].X*10),
+                                        (pointsVec[i].Y + middle.Y * 0.5f + entity.Normals[i].Y*10));
+                                }
+                                
+                            }
+                        }
                     }
 
                     //Debug Drawing
@@ -136,6 +163,7 @@ namespace VisualComputing2
                         g.DrawLine(Pens.Magenta, entity.Position.X, entity.Position.Y, entity.Position.X + entity.Velocity.X, entity.Position.Y + entity.Velocity.Y);
                         g.DrawRectangle(Pens.LawnGreen, entity.Position.X - entity.Radius, entity.Position.Y - entity.Radius, entity.Diameter(), entity.Diameter());
                     }
+                    
                 }
 
                 if (selectedEntity != null && selectedEntity.EShape == Entity.Shape.Sphere)
@@ -157,6 +185,23 @@ namespace VisualComputing2
             foreach (Entity entity in entities) 
             {
                 entity.Update(timerInterval);
+                if (entity.canMove)
+                {
+                    checkCollision(entity);
+                }
+            }
+
+        }
+
+        private void checkCollision(Entity e)
+        {
+            foreach(Entity entity in entities)
+            {
+                if (entity == e) return; // Dont check if its the same object
+                if(entity.EShape == Entity.Shape.Rectangle)
+                {
+
+                }
             }
         }
 

@@ -27,6 +27,7 @@ namespace VisualComputing2
 
         public Vector2 Dimension { get; set; }
         public Vector2[] Points;
+        public Vector2[] Normals;
 
 
         public enum Shape 
@@ -54,6 +55,7 @@ namespace VisualComputing2
             Dimension = new Vector2(width, hight);
             this.rotation = rotation;
             Points = GetRectPoints();
+            Normals = GetNormals(Points);
         }
 
         public float Diameter() 
@@ -75,14 +77,31 @@ namespace VisualComputing2
                 arr[i].Y = (float)(arr[i].Y * Math.Cos(angle) - arr[i].X * Math.Sin(angle));
                 arr[i].X = (float)(arr[i].Y * Math.Sin(angle) + arr[i].X * Math.Cos(angle));
             }
-
             return arr;
+        }
+
+        public Vector2[] GetNormals(Vector2[] points)
+        {
+            Vector2[] normals = new Vector2[points.Length];
+            for (int i = 0; i < points.Length; i++)
+            {
+                if(i == points.Length - 1)
+                {
+                    normals[i] = new Vector2(-(points[0].Y - points[i].Y), points[0].X - points[i].X);
+                }
+                else
+                {
+                    normals[i] = new Vector2(-(points[i + 1].Y - points[i].Y), points[i + 1].X - points[i].X);
+                }
+                normals[i] = Vector2.Normalize(normals[i]);
+            }
+            return normals;
         }
 
         public void Update(float timerInterval) 
         {
             //Velocity Verlet Calculation
-            timerInterval = timerInterval / 1000;
+            timerInterval = 1 /timerInterval;
             if (!canMove) return;
             Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
             Vector2 newAcceleration = ApplyForces();
@@ -95,11 +114,17 @@ namespace VisualComputing2
 
         private Vector2 ApplyForces()
         {
-            Vector2 gravity = new Vector2(0, Form1.gravity);
+            Vector2 gravity = Vector2.Zero;
+            if (Form1.useGravity)
+            {
+                gravity = new Vector2(0, Form1.gravity);
+            }
             Vector2 drag_force = 0.5f * drag * (Velocity * Vector2.Abs(Velocity));
             Vector2 drag_acc = drag_force / mass;
             return gravity - drag_acc;
         }
+
+    
 
     }
 }
