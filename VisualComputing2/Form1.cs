@@ -15,15 +15,16 @@ using System.Runtime.InteropServices;
 
 namespace VisualComputing2
 {
-    public partial class Form1 : Form
+    public partial class ModSimWindow : Form
     {
         Graphics g;
         SolidBrush brush;
         Pen pen;
+        bool runSimulation = false;
         Bitmap bufl;
-
         float timerInterval;
         public static float gravity = 9.81f;
+
 
         List<Entity> entities = new List<Entity>();
         Entity selectedEntity;
@@ -31,7 +32,7 @@ namespace VisualComputing2
         bool enableDebug;
         public static bool useGravity = true;
 
-        public Form1()
+        public ModSimWindow()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -182,7 +183,7 @@ namespace VisualComputing2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            foreach (Entity entity in entities) 
+            if (runSimulation)
             {
                 entity.Update(timerInterval);
                 if (entity.canMove)
@@ -232,6 +233,82 @@ namespace VisualComputing2
                 selectedEntity = null;
                 currentObjectLabel.Text = "Current Object: None";
             }
+        }
+
+        private void startPosition_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void small_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void big_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void yAxis_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sphere1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void angle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wind_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //start and pause simulation
+        private void btnStartSimulation_Click(object sender, EventArgs e)
+        {
+            runSimulation = !runSimulation;
         }
     }
 }
