@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 
 namespace VisualComputing2
 {
-    public partial class ModSimWindow : Form
+    public partial class Form1 : Form
     {
         Graphics g;
         SolidBrush brush;
@@ -32,7 +32,7 @@ namespace VisualComputing2
         bool enableDebug;
         public static bool useGravity = true;
 
-        public ModSimWindow()
+        public Form1()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -40,20 +40,22 @@ namespace VisualComputing2
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
 
-            entities.Add(new Entity(new Vector2(200, 500), true, 10f));
+            
+            entities.Add(new Entity(new Vector2(200, 400), true, 10f));
             entities.Add(new Entity(new Vector2(200, 200), 50f, 30f, 20f));
-            entities.Add(new Entity(new Vector2(Width / 2, 0), Width, 20f, 0f));
-            entities.Add(new Entity(new Vector2(Width / 2, Height-40), Width, 20f, 0f));
-            entities.Add(new Entity(new Vector2(0, (Height-20) / 2), 20f, Height, 0f));
-            entities.Add(new Entity(new Vector2(Width -20, (Height - 20) / 2), 20f, Height, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width / 2, 0), pictureBox1.Width, 20f, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), pictureBox1.Width, 20f, 0f));
+            entities.Add(new Entity(new Vector2(0, (pictureBox1.Height -20) / 2), 20f, pictureBox1.Height, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), 20f, pictureBox1.Height, 0f));
+            entities.Add(new Entity(new Vector2(300, 500), 300, 20f, 0f));
 
             entities[0].Velocity = new Vector2(5, -40);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             timerInterval = timer1.Interval;
-            enableDebug = enableDebugDrawCheck.Checked;
-            bufl = new Bitmap(this.Width, this.Height);
+            enableDebug = true; //enableDebugDrawCheck.Checked;
+            bufl = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
         // https://gamedev.stackexchange.com/questions/67651/what-is-the-standard-c-windows-forms-game-loop
@@ -88,19 +90,19 @@ namespace VisualComputing2
 
         new void Update()
         {
-            if(selectedEntity == null) 
-            {
-                posXBox.Clear();
-                posYBox.Clear();
-                velXBox.Clear();
-                velYBox.Clear();
-            } else
-            {
-                posXBox.Text = selectedEntity.Position.X.ToString();
-                posYBox.Text = selectedEntity.Position.Y.ToString();
-                velXBox.Text = selectedEntity.Velocity.X.ToString();
-                velYBox.Text = selectedEntity.Velocity.Y.ToString();
-            }
+            //if(selectedEntity == null) 
+            //{
+            //    posXBox.Clear();
+            //    posYBox.Clear();
+            //    velXBox.Clear();
+            //    velYBox.Clear();
+            //} else
+            //{
+            //    posXBox.Text = selectedEntity.Position.X.ToString();
+            //    posYBox.Text = selectedEntity.Position.Y.ToString();
+            //    velXBox.Text = selectedEntity.Velocity.X.ToString();
+            //    velYBox.Text = selectedEntity.Velocity.Y.ToString();
+            //}
         }
 
         void Render()
@@ -172,7 +174,7 @@ namespace VisualComputing2
                     g.DrawEllipse(Pens.Turquoise, selectedEntity.Position.X - selectedEntity.Radius, selectedEntity.Position.Y - selectedEntity.Radius, selectedEntity.Diameter(), selectedEntity.Diameter());
                 }
                 //Draw finished Image
-                this.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                pictureBox1.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
             }
 
             //g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0,0, Size.Width, Size.Height));
@@ -185,54 +187,80 @@ namespace VisualComputing2
         {
             if (runSimulation)
             {
-                entity.Update(timerInterval);
-                if (entity.canMove)
+                foreach (Entity entity in entities)
                 {
-                    checkCollision(entity);
+                    entity.Update(timerInterval);
+                    if (entity.canMove)
+                    {
+                        foreach (Entity rechteck in entities)
+                        {
+                            if (rechteck == entity) continue;
+                            else
+                            {
+                                if (checkCollision(entity, rechteck))
+                                {
+                                    
+                                    entity.Velocity = Vector2.Reflect(entity.Velocity, rechteck.Normals[3]);
+                                    
+                                }
+                            }
+                        }
+                        
+                    }
                 }
             }
-
         }
 
-        private void checkCollision(Entity e)
+        private bool checkCollision(Entity kreis, Entity rechteck)
         {
-            foreach(Entity entity in entities)
-            {
-                if (entity == e) return; // Dont check if its the same object
-                if(entity.EShape == Entity.Shape.Rectangle)
+           
+                
+                if (rechteck.EShape == Entity.Shape.Rectangle) //Check for rectangles
                 {
+                    if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
+                    {
+                        Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position);
+                        if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
+                        if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
+                        if (abstand.X <= (rechteck.Dimension.X / 2)) return true;
+                        if (abstand.Y <= (rechteck.Dimension.Y / 2)) return true;
+                        float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+                        return (kAbstand_qd <= kreis.Radius * kreis.Radius);
+                    }
+                    //else // Funktioniert noch nicht, dont bother
+                    //{
+                    //    for (int i = 0; i < entity.ShapeVectors.Length; i++)
+                    //    {
 
+                    //        Vector2 distanceToSphere = entity.Points[i] - e.Position;
+                    //        float shapeVectorLength = entity.ShapeVectors[i].Length();
+
+                    //        float dotProduct = Vector2.Dot(distanceToSphere, entity.Normals[i]);
+
+                    //        Vector2 pointOnLine = entity.Normals[i] * dotProduct;
+
+                    //        Vector2 output = pointOnLine + entity.ShapeVectors[i];
+                    //        if ((e.Position - output).Length() <= e.Radius)
+                    //        {
+                    //            Console.WriteLine("Collision!!!");
+                    //            e.Velocity = Vector2.Zero;
+                    //        }
+
+                    //    }
+                    //}
+                    
+                    
                 }
-            }
+            return false;
         }
 
         private void EnableDebugDraw_CheckedChanged(object sender, EventArgs e)
         {
-            enableDebug = enableDebugDrawCheck.Checked;
+            //enableDebug = enableDebugDrawCheck.Checked;
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs me) 
         {
-            bool eFound = false;
-            foreach (Entity entity in entities)
-            {
-                if (entity.Position.X-entity.Radius <= me.X && entity.Position.X + entity.Radius >= me.X) 
-                {
-                    if (entity.Position.Y - entity.Radius <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
-                    {
-                        currentObjectLabel.Text = "Current Object: " + entity.ToString();
-                        selectedEntity = entity;
-                        eFound = true;
-                        break;
-                    }
-                    
-                } continue;
-            }
-            if (!eFound) 
-            {
-                selectedEntity = null;
-                currentObjectLabel.Text = "Current Object: None";
-            }
         }
 
         private void startPosition_Click(object sender, EventArgs e)
@@ -309,6 +337,48 @@ namespace VisualComputing2
         private void btnStartSimulation_Click(object sender, EventArgs e)
         {
             runSimulation = !runSimulation;
+            if (runSimulation)
+            {
+                btnStartSimulation.Text = "Pause";
+            }
+            else
+            {
+                btnStartSimulation.Text = "Start";
+            }
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs me)
+        {
+            bool eFound = false;
+            foreach (Entity entity in entities)
+            {
+                if (entity.Position.X - entity.Radius <= me.X && entity.Position.X + entity.Radius >= me.X)
+                {
+                    if (entity.Position.Y - entity.Radius <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
+                    {
+                        //currentObjectLabel.Text = "Current Object: " + entity.ToString();
+                        selectedEntity = entity;
+                        eFound = true;
+                        break;
+                    }
+
+                }
+                continue;
+            }
+            if (!eFound)
+            {
+                selectedEntity = null;
+                //currentObjectLabel.Text = "Current Object: None";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void addSphere_Click(object sender, EventArgs e)
+        { 
         }
     }
 }
