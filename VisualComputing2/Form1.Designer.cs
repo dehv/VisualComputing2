@@ -31,25 +31,17 @@ namespace VisualComputing2
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.numbSphere = new System.Windows.Forms.Label();
-            this.sizeSphere = new System.Windows.Forms.Label();
+            this.objectName = new System.Windows.Forms.Label();
             this.startPosition = new System.Windows.Forms.Label();
-            this.startPoint = new System.Windows.Forms.Label();
-            this.angle = new System.Windows.Forms.Label();
+            this.startVelocity = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.xAcis = new System.Windows.Forms.Label();
             this.yAxis = new System.Windows.Forms.Label();
-            this.big = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.addSphere = new System.Windows.Forms.Button();
-            this.small = new System.Windows.Forms.Label();
+            this.textboxObjectName = new System.Windows.Forms.TextBox();
+            this.addObject = new System.Windows.Forms.Button();
             this.btnStartSimulation = new System.Windows.Forms.Button();
-            this.windVelocity = new System.Windows.Forms.Label();
-            this.windTrackbar = new System.Windows.Forms.TrackBar();
-            this.windSlow = new System.Windows.Forms.Label();
-            this.windFast = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.sphereName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sphereColor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,19 +49,29 @@ namespace VisualComputing2
             this.positionY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.collision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.controlsGroup = new System.Windows.Forms.GroupBox();
-            this.controlsGroup2 = new System.Windows.Forms.GroupBox();
-            this.sphereSizeTrackbar = new System.Windows.Forms.TrackBar();
             this.DataGridView = new System.Windows.Forms.GroupBox();
             this.btnReset = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.windTrackbar)).BeginInit();
+            this.DropDownList = new System.Windows.Forms.ComboBox();
+            this.colorObject = new System.Windows.Forms.Label();
+            this.textboxColorObject = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radius = new System.Windows.Forms.Label();
+            this.weight = new System.Windows.Forms.Label();
+            this.impacts = new System.Windows.Forms.GroupBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.checkboxGravitation = new System.Windows.Forms.CheckBox();
+            this.checkboxWind = new System.Windows.Forms.CheckBox();
+            this.checkboxFriction = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controlsGroup.SuspendLayout();
-            this.controlsGroup2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sphereSizeTrackbar)).BeginInit();
             this.DataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.impacts.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -78,33 +80,22 @@ namespace VisualComputing2
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // numbSphere
+            // objectName
             // 
-            this.numbSphere.AutoSize = true;
-            this.numbSphere.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numbSphere.Location = new System.Drawing.Point(51, 81);
-            this.numbSphere.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.numbSphere.Name = "numbSphere";
-            this.numbSphere.Size = new System.Drawing.Size(176, 25);
-            this.numbSphere.TabIndex = 1;
-            this.numbSphere.Text = "Anzahl der Kugel";
-            // 
-            // sizeSphere
-            // 
-            this.sizeSphere.AutoSize = true;
-            this.sizeSphere.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sizeSphere.Location = new System.Drawing.Point(111, 104);
-            this.sizeSphere.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.sizeSphere.Name = "sizeSphere";
-            this.sizeSphere.Size = new System.Drawing.Size(170, 25);
-            this.sizeSphere.TabIndex = 2;
-            this.sizeSphere.Text = "Größe der Kugel";
+            this.objectName.AutoSize = true;
+            this.objectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.objectName.Location = new System.Drawing.Point(40, 142);
+            this.objectName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.objectName.Name = "objectName";
+            this.objectName.Size = new System.Drawing.Size(200, 25);
+            this.objectName.TabIndex = 1;
+            this.objectName.Text = "Name des Objektes";
             // 
             // startPosition
             // 
             this.startPosition.AutoSize = true;
             this.startPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPosition.Location = new System.Drawing.Point(54, 159);
+            this.startPosition.Location = new System.Drawing.Point(40, 268);
             this.startPosition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startPosition.Name = "startPosition";
             this.startPosition.Size = new System.Drawing.Size(132, 25);
@@ -112,50 +103,38 @@ namespace VisualComputing2
             this.startPosition.Text = "Startposition";
             this.startPosition.Click += new System.EventHandler(this.startPosition_Click);
             // 
-            // startPoint
+            // startVelocity
             // 
-            this.startPoint.AutoSize = true;
-            this.startPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPoint.Location = new System.Drawing.Point(59, 246);
-            this.startPoint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.startPoint.Name = "startPoint";
-            this.startPoint.Size = new System.Drawing.Size(110, 25);
-            this.startPoint.TabIndex = 4;
-            this.startPoint.Text = "Startpunkt";
-            this.startPoint.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // angle
-            // 
-            this.angle.AutoSize = true;
-            this.angle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.angle.Location = new System.Drawing.Point(326, 286);
-            this.angle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.angle.Name = "angle";
-            this.angle.Size = new System.Drawing.Size(262, 20);
-            this.angle.TabIndex = 5;
-            this.angle.Text = "(Grad) Winkel der schiefen Ebene";
-            this.angle.Click += new System.EventHandler(this.angle_Click);
+            this.startVelocity.AutoSize = true;
+            this.startVelocity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startVelocity.Location = new System.Drawing.Point(40, 329);
+            this.startVelocity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.startVelocity.Name = "startVelocity";
+            this.startVelocity.Size = new System.Drawing.Size(210, 25);
+            this.startVelocity.TabIndex = 4;
+            this.startVelocity.Text = "Startgeschwindigkeit";
+            this.startVelocity.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(330, 246);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Location = new System.Drawing.Point(152, 401);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(104, 29);
+            this.textBox2.Size = new System.Drawing.Size(124, 29);
             this.textBox2.TabIndex = 9;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(330, 166);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Location = new System.Drawing.Point(305, 266);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(71, 29);
             this.textBox3.TabIndex = 10;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(473, 166);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Location = new System.Drawing.Point(448, 266);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(74, 29);
             this.textBox4.TabIndex = 11;
@@ -165,7 +144,7 @@ namespace VisualComputing2
             // 
             this.xAcis.AutoSize = true;
             this.xAcis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xAcis.Location = new System.Drawing.Point(294, 162);
+            this.xAcis.Location = new System.Drawing.Point(269, 262);
             this.xAcis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xAcis.Name = "xAcis";
             this.xAcis.Size = new System.Drawing.Size(26, 25);
@@ -177,7 +156,7 @@ namespace VisualComputing2
             // 
             this.yAxis.AutoSize = true;
             this.yAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yAxis.Location = new System.Drawing.Point(440, 162);
+            this.yAxis.Location = new System.Drawing.Point(415, 262);
             this.yAxis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yAxis.Name = "yAxis";
             this.yAxis.Size = new System.Drawing.Size(27, 25);
@@ -185,102 +164,36 @@ namespace VisualComputing2
             this.yAxis.Text = "Y";
             this.yAxis.Click += new System.EventHandler(this.yAxis_Click);
             // 
-            // big
+            // textboxObjectName
             // 
-            this.big.AutoSize = true;
-            this.big.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.big.Location = new System.Drawing.Point(323, 224);
-            this.big.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.big.Name = "big";
-            this.big.Size = new System.Drawing.Size(52, 25);
-            this.big.TabIndex = 14;
-            this.big.Text = "groß";
-            this.big.Click += new System.EventHandler(this.big_Click);
+            this.textboxObjectName.Location = new System.Drawing.Point(267, 140);
+            this.textboxObjectName.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxObjectName.Name = "textboxObjectName";
+            this.textboxObjectName.Size = new System.Drawing.Size(374, 29);
+            this.textboxObjectName.TabIndex = 15;
             // 
-            // textBox5
+            // addObject
             // 
-            this.textBox5.Location = new System.Drawing.Point(330, 86);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(104, 29);
-            this.textBox5.TabIndex = 15;
-            // 
-            // addSphere
-            // 
-            this.addSphere.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addSphere.Location = new System.Drawing.Point(367, 406);
-            this.addSphere.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.addSphere.Name = "addSphere";
-            this.addSphere.Size = new System.Drawing.Size(265, 57);
-            this.addSphere.TabIndex = 16;
-            this.addSphere.Text = "Kugel erstellen";
-            this.addSphere.UseVisualStyleBackColor = true;
-            // 
-            // small
-            // 
-            this.small.AutoSize = true;
-            this.small.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.small.Location = new System.Drawing.Point(59, 224);
-            this.small.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.small.Name = "small";
-            this.small.Size = new System.Drawing.Size(52, 25);
-            this.small.TabIndex = 17;
-            this.small.Text = "klein";
-            this.small.Click += new System.EventHandler(this.small_Click);
+            this.addObject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addObject.Location = new System.Drawing.Point(376, 816);
+            this.addObject.Margin = new System.Windows.Forms.Padding(4);
+            this.addObject.Name = "addObject";
+            this.addObject.Size = new System.Drawing.Size(265, 57);
+            this.addObject.TabIndex = 16;
+            this.addObject.Text = "Objekt erstellen";
+            this.addObject.UseVisualStyleBackColor = true;
             // 
             // btnStartSimulation
             // 
             this.btnStartSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartSimulation.Location = new System.Drawing.Point(2289, 1064);
-            this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartSimulation.Name = "btnStartSimulation";
             this.btnStartSimulation.Size = new System.Drawing.Size(275, 54);
             this.btnStartSimulation.TabIndex = 18;
             this.btnStartSimulation.Text = "Abspielen";
             this.btnStartSimulation.UseVisualStyleBackColor = true;
             this.btnStartSimulation.Click += new System.EventHandler(this.btnStartSimulation_Click);
-            // 
-            // windVelocity
-            // 
-            this.windVelocity.AutoSize = true;
-            this.windVelocity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windVelocity.Location = new System.Drawing.Point(495, 104);
-            this.windVelocity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.windVelocity.Name = "windVelocity";
-            this.windVelocity.Size = new System.Drawing.Size(214, 25);
-            this.windVelocity.TabIndex = 19;
-            this.windVelocity.Text = "Windgeschwindigkeit";
-            this.windVelocity.Click += new System.EventHandler(this.wind_Click);
-            // 
-            // windTrackbar
-            // 
-            this.windTrackbar.Location = new System.Drawing.Point(535, 168);
-            this.windTrackbar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.windTrackbar.Name = "windTrackbar";
-            this.windTrackbar.Size = new System.Drawing.Size(220, 80);
-            this.windTrackbar.TabIndex = 27;
-            // 
-            // windSlow
-            // 
-            this.windSlow.AutoSize = true;
-            this.windSlow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windSlow.Location = new System.Drawing.Point(466, 224);
-            this.windSlow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.windSlow.Name = "windSlow";
-            this.windSlow.Size = new System.Drawing.Size(86, 25);
-            this.windSlow.TabIndex = 28;
-            this.windSlow.Text = "langsam";
-            // 
-            // windFast
-            // 
-            this.windFast.AutoSize = true;
-            this.windFast.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windFast.Location = new System.Drawing.Point(733, 224);
-            this.windFast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.windFast.Name = "windFast";
-            this.windFast.Size = new System.Drawing.Size(73, 25);
-            this.windFast.TabIndex = 29;
-            this.windFast.Text = "schnell";
             // 
             // dataGridView1
             // 
@@ -292,7 +205,7 @@ namespace VisualComputing2
             this.positionY,
             this.collision});
             this.dataGridView1.Location = new System.Drawing.Point(8, 32);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 72;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -338,61 +251,44 @@ namespace VisualComputing2
             // 
             // controlsGroup
             // 
-            this.controlsGroup.Controls.Add(this.addSphere);
+            this.controlsGroup.Controls.Add(this.textBox6);
+            this.controlsGroup.Controls.Add(this.impacts);
+            this.controlsGroup.Controls.Add(this.weight);
+            this.controlsGroup.Controls.Add(this.radius);
+            this.controlsGroup.Controls.Add(this.label1);
+            this.controlsGroup.Controls.Add(this.textBox1);
+            this.controlsGroup.Controls.Add(this.textBox5);
+            this.controlsGroup.Controls.Add(this.label2);
+            this.controlsGroup.Controls.Add(this.textboxColorObject);
+            this.controlsGroup.Controls.Add(this.colorObject);
+            this.controlsGroup.Controls.Add(this.DropDownList);
+            this.controlsGroup.Controls.Add(this.addObject);
             this.controlsGroup.Controls.Add(this.xAcis);
-            this.controlsGroup.Controls.Add(this.numbSphere);
+            this.controlsGroup.Controls.Add(this.objectName);
             this.controlsGroup.Controls.Add(this.startPosition);
-            this.controlsGroup.Controls.Add(this.startPoint);
-            this.controlsGroup.Controls.Add(this.angle);
+            this.controlsGroup.Controls.Add(this.startVelocity);
             this.controlsGroup.Controls.Add(this.textBox2);
             this.controlsGroup.Controls.Add(this.textBox3);
             this.controlsGroup.Controls.Add(this.textBox4);
             this.controlsGroup.Controls.Add(this.yAxis);
-            this.controlsGroup.Controls.Add(this.textBox5);
-            this.controlsGroup.Location = new System.Drawing.Point(48, 52);
-            this.controlsGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.controlsGroup.Controls.Add(this.textboxObjectName);
+            this.controlsGroup.Location = new System.Drawing.Point(32, 52);
+            this.controlsGroup.Margin = new System.Windows.Forms.Padding(4);
             this.controlsGroup.Name = "controlsGroup";
-            this.controlsGroup.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.controlsGroup.Size = new System.Drawing.Size(686, 1060);
+            this.controlsGroup.Padding = new System.Windows.Forms.Padding(4);
+            this.controlsGroup.Size = new System.Drawing.Size(678, 1438);
             this.controlsGroup.TabIndex = 43;
             this.controlsGroup.TabStop = false;
-            this.controlsGroup.Text = "Parameter festlegen";
-            // 
-            // controlsGroup2
-            // 
-            this.controlsGroup2.Controls.Add(this.sphereSizeTrackbar);
-            this.controlsGroup2.Controls.Add(this.windVelocity);
-            this.controlsGroup2.Controls.Add(this.sizeSphere);
-            this.controlsGroup2.Controls.Add(this.big);
-            this.controlsGroup2.Controls.Add(this.small);
-            this.controlsGroup2.Controls.Add(this.windFast);
-            this.controlsGroup2.Controls.Add(this.windTrackbar);
-            this.controlsGroup2.Controls.Add(this.windSlow);
-            this.controlsGroup2.Location = new System.Drawing.Point(48, 1122);
-            this.controlsGroup2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.controlsGroup2.Name = "controlsGroup2";
-            this.controlsGroup2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.controlsGroup2.Size = new System.Drawing.Size(1143, 368);
-            this.controlsGroup2.TabIndex = 44;
-            this.controlsGroup2.TabStop = false;
-            this.controlsGroup2.Text = "Schieberegler";
-            // 
-            // sphereSizeTrackbar
-            // 
-            this.sphereSizeTrackbar.Location = new System.Drawing.Point(117, 168);
-            this.sphereSizeTrackbar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.sphereSizeTrackbar.Name = "sphereSizeTrackbar";
-            this.sphereSizeTrackbar.Size = new System.Drawing.Size(220, 80);
-            this.sphereSizeTrackbar.TabIndex = 30;
+            this.controlsGroup.Text = "Objekte und Parameter";
             // 
             // DataGridView
             // 
             this.DataGridView.Controls.Add(this.dataGridView1);
-            this.DataGridView.Location = new System.Drawing.Point(1199, 1122);
-            this.DataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DataGridView.Location = new System.Drawing.Point(718, 1122);
+            this.DataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.DataGridView.Name = "DataGridView";
-            this.DataGridView.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.DataGridView.Size = new System.Drawing.Size(1360, 368);
+            this.DataGridView.Padding = new System.Windows.Forms.Padding(4);
+            this.DataGridView.Size = new System.Drawing.Size(1841, 368);
             this.DataGridView.TabIndex = 45;
             this.DataGridView.TabStop = false;
             this.DataGridView.Text = "RealTimeData";
@@ -401,30 +297,159 @@ namespace VisualComputing2
             // 
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.Location = new System.Drawing.Point(2006, 1064);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(275, 54);
             this.btnReset.TabIndex = 46;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(742, 1028);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1822, 12);
-            this.progressBar1.TabIndex = 47;
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
-            // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(742, 63);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(718, 63);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1822, 956);
+            this.pictureBox1.Size = new System.Drawing.Size(1852, 983);
             this.pictureBox1.TabIndex = 48;
             this.pictureBox1.TabStop = false;
+            // 
+            // DropDownList
+            // 
+            this.DropDownList.DropDownHeight = 160;
+            this.DropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropDownList.DropDownWidth = 240;
+            this.DropDownList.FormattingEnabled = true;
+            this.DropDownList.IntegralHeight = false;
+            this.DropDownList.Location = new System.Drawing.Point(45, 66);
+            this.DropDownList.Name = "DropDownList";
+            this.DropDownList.Size = new System.Drawing.Size(596, 32);
+            this.DropDownList.TabIndex = 17;
+            // 
+            // colorObject
+            // 
+            this.colorObject.AutoSize = true;
+            this.colorObject.Location = new System.Drawing.Point(40, 204);
+            this.colorObject.Name = "colorObject";
+            this.colorObject.Size = new System.Drawing.Size(183, 25);
+            this.colorObject.TabIndex = 18;
+            this.colorObject.Text = "Farbe des Objektes";
+            this.colorObject.Click += new System.EventHandler(this.label1_Click_2);
+            // 
+            // textboxColorObject
+            // 
+            this.textboxColorObject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textboxColorObject.Location = new System.Drawing.Point(267, 201);
+            this.textboxColorObject.Name = "textboxColorObject";
+            this.textboxColorObject.ReadOnly = true;
+            this.textboxColorObject.Size = new System.Drawing.Size(374, 29);
+            this.textboxColorObject.TabIndex = 19;
+            this.textboxColorObject.Text = "klicke um Farbe auszuwählen";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(269, 329);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(26, 25);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "X";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(305, 333);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(71, 29);
+            this.textBox1.TabIndex = 20;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(448, 333);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(74, 29);
+            this.textBox5.TabIndex = 21;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(415, 329);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 25);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Y";
+            // 
+            // radius
+            // 
+            this.radius.AutoSize = true;
+            this.radius.Location = new System.Drawing.Point(40, 398);
+            this.radius.Name = "radius";
+            this.radius.Size = new System.Drawing.Size(72, 25);
+            this.radius.TabIndex = 24;
+            this.radius.Text = "Radius";
+            // 
+            // weight
+            // 
+            this.weight.AutoSize = true;
+            this.weight.Location = new System.Drawing.Point(300, 401);
+            this.weight.Name = "weight";
+            this.weight.Size = new System.Drawing.Size(71, 25);
+            this.weight.TabIndex = 25;
+            this.weight.Text = "Masse";
+            // 
+            // impacts
+            // 
+            this.impacts.Controls.Add(this.checkboxFriction);
+            this.impacts.Controls.Add(this.checkboxWind);
+            this.impacts.Controls.Add(this.checkboxGravitation);
+            this.impacts.Location = new System.Drawing.Point(45, 471);
+            this.impacts.Name = "impacts";
+            this.impacts.Size = new System.Drawing.Size(596, 306);
+            this.impacts.TabIndex = 26;
+            this.impacts.TabStop = false;
+            this.impacts.Text = "Einflüsse";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(398, 398);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(124, 29);
+            this.textBox6.TabIndex = 27;
+            // 
+            // checkboxGravitation
+            // 
+            this.checkboxGravitation.AutoSize = true;
+            this.checkboxGravitation.Location = new System.Drawing.Point(64, 80);
+            this.checkboxGravitation.Name = "checkboxGravitation";
+            this.checkboxGravitation.Size = new System.Drawing.Size(131, 29);
+            this.checkboxGravitation.TabIndex = 4;
+            this.checkboxGravitation.Text = "Gravitation";
+            this.checkboxGravitation.UseVisualStyleBackColor = true;
+            // 
+            // checkboxWind
+            // 
+            this.checkboxWind.AutoSize = true;
+            this.checkboxWind.Location = new System.Drawing.Point(64, 145);
+            this.checkboxWind.Name = "checkboxWind";
+            this.checkboxWind.Size = new System.Drawing.Size(84, 29);
+            this.checkboxWind.TabIndex = 5;
+            this.checkboxWind.Text = "Wind";
+            this.checkboxWind.UseVisualStyleBackColor = true;
+            // 
+            // checkboxFriction
+            // 
+            this.checkboxFriction.AutoSize = true;
+            this.checkboxFriction.Location = new System.Drawing.Point(64, 214);
+            this.checkboxFriction.Name = "checkboxFriction";
+            this.checkboxFriction.Size = new System.Drawing.Size(110, 29);
+            this.checkboxFriction.TabIndex = 6;
+            this.checkboxFriction.Text = "Reibung";
+            this.checkboxFriction.UseVisualStyleBackColor = true;
             // 
             // ModSimWindow
             // 
@@ -433,25 +458,21 @@ namespace VisualComputing2
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(2607, 1524);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.DataGridView);
-            this.Controls.Add(this.controlsGroup2);
             this.Controls.Add(this.controlsGroup);
             this.Controls.Add(this.btnStartSimulation);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ModSimWindow";
             this.Text = "Modellsimulation Kugelbahn";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.windTrackbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.controlsGroup.ResumeLayout(false);
             this.controlsGroup.PerformLayout();
-            this.controlsGroup2.ResumeLayout(false);
-            this.controlsGroup2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sphereSizeTrackbar)).EndInit();
             this.DataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.impacts.ResumeLayout(false);
+            this.impacts.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -459,38 +480,42 @@ namespace VisualComputing2
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label numbSphere;
-        private System.Windows.Forms.Label sizeSphere;
+        private System.Windows.Forms.Label objectName;
         private System.Windows.Forms.Label startPosition;
-        private System.Windows.Forms.Label startPoint;
-        private System.Windows.Forms.Label angle;
+        private System.Windows.Forms.Label startVelocity;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label xAcis;
         private System.Windows.Forms.Label yAxis;
-        private System.Windows.Forms.Label big;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button addSphere;
-        private System.Windows.Forms.Label small;
+        private System.Windows.Forms.TextBox textboxObjectName;
+        private System.Windows.Forms.Button addObject;
         private System.Windows.Forms.Button btnStartSimulation;
-        private System.Windows.Forms.Label windVelocity;
-        private System.Windows.Forms.TrackBar windTrackbar;
-        private System.Windows.Forms.Label windSlow;
-        private System.Windows.Forms.Label windFast;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox controlsGroup;
-        private System.Windows.Forms.GroupBox controlsGroup2;
         private System.Windows.Forms.DataGridViewTextBoxColumn sphereName;
         private System.Windows.Forms.DataGridViewTextBoxColumn sphereColor;
         private System.Windows.Forms.DataGridViewTextBoxColumn positionX;
         private System.Windows.Forms.DataGridViewTextBoxColumn positionY;
         private System.Windows.Forms.GroupBox DataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn collision;
-        private System.Windows.Forms.TrackBar sphereSizeTrackbar;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox DropDownList;
+        private System.Windows.Forms.TextBox textboxColorObject;
+        private System.Windows.Forms.Label colorObject;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.GroupBox impacts;
+        private System.Windows.Forms.CheckBox checkboxFriction;
+        private System.Windows.Forms.CheckBox checkboxWind;
+        private System.Windows.Forms.CheckBox checkboxGravitation;
+        private System.Windows.Forms.Label weight;
+        private System.Windows.Forms.Label radius;
     }
 }
 

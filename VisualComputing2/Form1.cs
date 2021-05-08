@@ -310,5 +310,10 @@ namespace VisualComputing2
         {
             runSimulation = !runSimulation;
         }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
     }
 }
