@@ -406,5 +406,10 @@ namespace VisualComputing2
         private void addSphere_Click(object sender, EventArgs e)
         { 
         }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
     }
 }
