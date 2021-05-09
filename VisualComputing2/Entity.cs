@@ -27,7 +27,11 @@ namespace VisualComputing2
 
         public Vector2 Dimension { get; set; }
         public Vector2[] Points;
+        public Vector2[] ShapeVectors;
         public Vector2[] Normals;
+
+        public Vector2 startPosition;
+        public Vector2 startVelocity;
 
 
         public enum Shape 
@@ -56,6 +60,7 @@ namespace VisualComputing2
             this.rotation = rotation;
             Points = GetRectPoints();
             Normals = GetNormals(Points);
+            ShapeVectors = getShapeVectors(Points);
         }
 
         public float Diameter() 
@@ -72,7 +77,7 @@ namespace VisualComputing2
             arr[3] = Position - 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
 
             double angle = rotation * Math.PI / 180;
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++) //Rotation der Punkte
             {
                 arr[i].Y = (float)(arr[i].Y * Math.Cos(angle) - arr[i].X * Math.Sin(angle));
                 arr[i].X = (float)(arr[i].Y * Math.Sin(angle) + arr[i].X * Math.Cos(angle));
@@ -98,10 +103,28 @@ namespace VisualComputing2
             return normals;
         }
 
+        public Vector2[] getShapeVectors(Vector2[] points)
+        {
+            Vector2[] shapeVectors = new Vector2[points.Length]; // Vektoren der Form bestimmen
+            for (int i = 0; i < points.Length; i++)
+            {
+                if (i == points.Length-1)
+                {
+                    shapeVectors[i] = points[0] - points[i];
+                }
+                else
+                {
+                    shapeVectors[i] = points[i + 1] - points[i];
+                    
+                }
+            }
+            return shapeVectors;
+        }
+
         public void Update(float timerInterval) 
         {
             //Velocity Verlet Calculation
-            timerInterval = 1 /timerInterval;
+            timerInterval = 0.05f;
             if (!canMove) return;
             Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
             Vector2 newAcceleration = ApplyForces();

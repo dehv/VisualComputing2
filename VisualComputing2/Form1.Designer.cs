@@ -72,12 +72,13 @@ namespace VisualComputing2
             this.impacts.SuspendLayout();
             this.DataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // objectName
@@ -95,10 +96,11 @@ namespace VisualComputing2
             // 
             this.startPosition.AutoSize = true;
             this.startPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
             this.startPosition.Location = new System.Drawing.Point(40, 268);
             this.startPosition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startPosition.Name = "startPosition";
-            this.startPosition.Size = new System.Drawing.Size(132, 25);
+            this.startPosition.Size = new System.Drawing.Size(75, 15);
             this.startPosition.TabIndex = 3;
             this.startPosition.Text = "Startposition";
             this.startPosition.Click += new System.EventHandler(this.startPosition_Click);
@@ -128,7 +130,7 @@ namespace VisualComputing2
             this.textBox3.Location = new System.Drawing.Point(109, 301);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(71, 29);
+            this.textBox3.Size = new System.Drawing.Size(41, 20);
             this.textBox3.TabIndex = 10;
             // 
             // textBox4
@@ -136,7 +138,7 @@ namespace VisualComputing2
             this.textBox4.Location = new System.Drawing.Point(252, 301);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(74, 29);
+            this.textBox4.Size = new System.Drawing.Size(42, 20);
             this.textBox4.TabIndex = 11;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -147,7 +149,7 @@ namespace VisualComputing2
             this.xAcis.Location = new System.Drawing.Point(73, 297);
             this.xAcis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xAcis.Name = "xAcis";
-            this.xAcis.Size = new System.Drawing.Size(26, 25);
+            this.xAcis.Size = new System.Drawing.Size(15, 15);
             this.xAcis.TabIndex = 12;
             this.xAcis.Text = "X";
             this.xAcis.Click += new System.EventHandler(this.label1_Click);
@@ -159,7 +161,7 @@ namespace VisualComputing2
             this.yAxis.Location = new System.Drawing.Point(219, 298);
             this.yAxis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yAxis.Name = "yAxis";
-            this.yAxis.Size = new System.Drawing.Size(27, 25);
+            this.yAxis.Size = new System.Drawing.Size(14, 15);
             this.yAxis.TabIndex = 13;
             this.yAxis.Text = "Y";
             this.yAxis.Click += new System.EventHandler(this.yAxis_Click);
@@ -189,7 +191,7 @@ namespace VisualComputing2
             this.btnStartSimulation.Location = new System.Drawing.Point(1608, 707);
             this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartSimulation.Name = "btnStartSimulation";
-            this.btnStartSimulation.Size = new System.Drawing.Size(275, 54);
+            this.btnStartSimulation.Size = new System.Drawing.Size(150, 29);
             this.btnStartSimulation.TabIndex = 18;
             this.btnStartSimulation.Text = "Abspielen";
             this.btnStartSimulation.UseVisualStyleBackColor = true;
@@ -455,7 +457,7 @@ namespace VisualComputing2
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1896, 1016);
