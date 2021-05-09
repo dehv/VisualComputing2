@@ -133,7 +133,7 @@ namespace VisualComputing2
                         {
                             points[i] = new PointF(pointsVec[i].X, pointsVec[i].Y);
                         }
-                        g.FillPolygon(Brushes.Gray, points);
+                        g.DrawPolygon(Pens.Gray, points);
                         if (enableDebug)
                         {
                             for (int i = 0; i < pointsVec.Length; i++)
@@ -221,44 +221,47 @@ namespace VisualComputing2
                 {
                     if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
                     {
-                        Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
-                        if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
-                        if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
-                        if (abstand.X <= (rechteck.Dimension.X / 2))
-                        {
-                        kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+
+
+
+//                         Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
+//                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
+//                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
+//                         if (abstand.X <= (rechteck.Dimension.X / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+//                     }
+//                         if (abstand.Y <= (rechteck.Dimension.Y / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+//                         }
+//                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+//                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
                     }
-                        if (abstand.Y <= (rechteck.Dimension.Y / 2))
+                else // Funktioniert noch nicht, dont bother
+                {
+                    for (int i = 0; i < rechteck.ShapeVectors.Length; i++)
+                    {
+
+                        Vector2 distanceToSphere = rechteck.Points[i] - kreis.Position;
+                        float shapeVectorLength = rechteck.ShapeVectors[i].Length();
+
+                        float dotProduct = Vector2.Dot(distanceToSphere, rechteck.Normals[i]);
+
+                        Vector2 pointOnLine = rechteck.Normals[i] * dotProduct;
+                        
+                        Vector2 output = pointOnLine + rechteck.ShapeVectors[i];
+                        if ((kreis.Position - output).Length() <= kreis.Radius)
                         {
-                        kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+                            Console.WriteLine("Collision!!!");
+                            kreis.Velocity = Vector2.Zero;
                         }
-                        float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
-                        return (kAbstand_qd <= kreis.Radius * kreis.Radius);
+
                     }
-                    //else // Funktioniert noch nicht, dont bother
-                    //{
-                    //    for (int i = 0; i < entity.ShapeVectors.Length; i++)
-                    //    {
-
-                    //        Vector2 distanceToSphere = entity.Points[i] - e.Position;
-                    //        float shapeVectorLength = entity.ShapeVectors[i].Length();
-
-                    //        float dotProduct = Vector2.Dot(distanceToSphere, entity.Normals[i]);
-
-                    //        Vector2 pointOnLine = entity.Normals[i] * dotProduct;
-
-                    //        Vector2 output = pointOnLine + entity.ShapeVectors[i];
-                    //        if ((e.Position - output).Length() <= e.Radius)
-                    //        {
-                    //            Console.WriteLine("Collision!!!");
-                    //            e.Velocity = Vector2.Zero;
-                    //        }
-
-                    //    }
-                    //}
-                    
-                    
                 }
+
+
+            }
             return false;
         }
 
