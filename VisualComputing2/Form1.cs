@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 
 namespace VisualComputing2
 {
-    public partial class ModSimWindow : Form
+    public partial class Form1 : Form
     {
         Graphics g;
         SolidBrush brush;
@@ -32,7 +32,7 @@ namespace VisualComputing2
         bool enableDebug;
         public static bool useGravity = true;
 
-        public ModSimWindow()
+        public Form1()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -52,7 +52,7 @@ namespace VisualComputing2
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             timerInterval = timer1.Interval;
-            enableDebug = enableDebugDrawCheck.Checked;
+            //enableDebug = enableDebugDrawCheck.Checked;
             bufl = new Bitmap(this.Width, this.Height);
         }
 
@@ -88,19 +88,6 @@ namespace VisualComputing2
 
         new void Update()
         {
-            if(selectedEntity == null) 
-            {
-                posXBox.Clear();
-                posYBox.Clear();
-                velXBox.Clear();
-                velYBox.Clear();
-            } else
-            {
-                posXBox.Text = selectedEntity.Position.X.ToString();
-                posYBox.Text = selectedEntity.Position.Y.ToString();
-                velXBox.Text = selectedEntity.Velocity.X.ToString();
-                velYBox.Text = selectedEntity.Velocity.Y.ToString();
-            }
         }
 
         void Render()
@@ -185,10 +172,13 @@ namespace VisualComputing2
         {
             if (runSimulation)
             {
-                entity.Update(timerInterval);
-                if (entity.canMove)
+                foreach (Entity entity in entities)
                 {
-                    checkCollision(entity);
+                    entity.Update(timerInterval);
+                    if (entity.canMove)
+                    {
+                        checkCollision(entity);
+                    }
                 }
             }
 
@@ -208,7 +198,7 @@ namespace VisualComputing2
 
         private void EnableDebugDraw_CheckedChanged(object sender, EventArgs e)
         {
-            enableDebug = enableDebugDrawCheck.Checked;
+            //enableDebug = enableDebugDrawCheck.Checked;
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs me) 
@@ -220,7 +210,7 @@ namespace VisualComputing2
                 {
                     if (entity.Position.Y - entity.Radius <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
                     {
-                        currentObjectLabel.Text = "Current Object: " + entity.ToString();
+                        //currentObjectLabel.Text = "Current Object: " + entity.ToString();
                         selectedEntity = entity;
                         eFound = true;
                         break;
@@ -231,7 +221,7 @@ namespace VisualComputing2
             if (!eFound) 
             {
                 selectedEntity = null;
-                currentObjectLabel.Text = "Current Object: None";
+               // currentObjectLabel.Text = "Current Object: None";
             }
         }
 

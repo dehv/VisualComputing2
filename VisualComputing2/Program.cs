@@ -16,7 +16,7 @@ namespace VisualComputing2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ModSimWindow());
+            Application.Run(new Form1());
         }
     }
 }

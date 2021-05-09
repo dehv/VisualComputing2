@@ -1,7 +1,7 @@
 ﻿
 namespace VisualComputing2
 {
-    partial class ModSimWindow
+    partial class Form1
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -463,9 +463,8 @@ namespace VisualComputing2
             this.Controls.Add(this.controlsGroup);
             this.Controls.Add(this.btnStartSimulation);
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "ModSimWindow";
+            this.Name = "Form1";
             this.Text = "Modellsimulation Kugelbahn";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.controlsGroup.ResumeLayout(false);
             this.controlsGroup.PerformLayout();
