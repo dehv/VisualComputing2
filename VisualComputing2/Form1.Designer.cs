@@ -31,7 +31,9 @@ namespace VisualComputing2
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+
             this.objectName = new System.Windows.Forms.Label();
+
             this.startPosition = new System.Windows.Forms.Label();
             this.startVelocity = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -39,6 +41,7 @@ namespace VisualComputing2
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.xAcis = new System.Windows.Forms.Label();
             this.yAxis = new System.Windows.Forms.Label();
+
             this.textboxObjectName = new System.Windows.Forms.TextBox();
             this.addObject = new System.Windows.Forms.Button();
             this.btnStartSimulation = new System.Windows.Forms.Button();
@@ -67,17 +70,20 @@ namespace VisualComputing2
             this.checkboxGravitation = new System.Windows.Forms.CheckBox();
             this.checkboxWind = new System.Windows.Forms.CheckBox();
             this.checkboxFriction = new System.Windows.Forms.CheckBox();
+
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controlsGroup.SuspendLayout();
             this.DataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+
             this.impacts.SuspendLayout();
+
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // objectName
@@ -95,10 +101,11 @@ namespace VisualComputing2
             // 
             this.startPosition.AutoSize = true;
             this.startPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
             this.startPosition.Location = new System.Drawing.Point(40, 268);
             this.startPosition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startPosition.Name = "startPosition";
-            this.startPosition.Size = new System.Drawing.Size(132, 25);
+            this.startPosition.Size = new System.Drawing.Size(75, 15);
             this.startPosition.TabIndex = 3;
             this.startPosition.Text = "Startposition";
             this.startPosition.Click += new System.EventHandler(this.startPosition_Click);
@@ -125,18 +132,20 @@ namespace VisualComputing2
             // 
             // textBox3
             // 
+
             this.textBox3.Location = new System.Drawing.Point(305, 266);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(71, 29);
+            this.textBox3.Size = new System.Drawing.Size(41, 20);
             this.textBox3.TabIndex = 10;
             // 
             // textBox4
             // 
+
             this.textBox4.Location = new System.Drawing.Point(448, 266);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(74, 29);
+            this.textBox4.Size = new System.Drawing.Size(42, 20);
             this.textBox4.TabIndex = 11;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -147,7 +156,7 @@ namespace VisualComputing2
             this.xAcis.Location = new System.Drawing.Point(269, 262);
             this.xAcis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xAcis.Name = "xAcis";
-            this.xAcis.Size = new System.Drawing.Size(26, 25);
+            this.xAcis.Size = new System.Drawing.Size(15, 15);
             this.xAcis.TabIndex = 12;
             this.xAcis.Text = "X";
             this.xAcis.Click += new System.EventHandler(this.label1_Click);
@@ -159,7 +168,7 @@ namespace VisualComputing2
             this.yAxis.Location = new System.Drawing.Point(415, 262);
             this.yAxis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yAxis.Name = "yAxis";
-            this.yAxis.Size = new System.Drawing.Size(27, 25);
+            this.yAxis.Size = new System.Drawing.Size(14, 15);
             this.yAxis.TabIndex = 13;
             this.yAxis.Text = "Y";
             this.yAxis.Click += new System.EventHandler(this.yAxis_Click);
@@ -189,7 +198,7 @@ namespace VisualComputing2
             this.btnStartSimulation.Location = new System.Drawing.Point(2289, 1064);
             this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartSimulation.Name = "btnStartSimulation";
-            this.btnStartSimulation.Size = new System.Drawing.Size(275, 54);
+            this.btnStartSimulation.Size = new System.Drawing.Size(150, 29);
             this.btnStartSimulation.TabIndex = 18;
             this.btnStartSimulation.Text = "Abspielen";
             this.btnStartSimulation.UseVisualStyleBackColor = true;
@@ -209,7 +218,7 @@ namespace VisualComputing2
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 72;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1334, 336);
+            this.dataGridView1.Size = new System.Drawing.Size(728, 182);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -312,6 +321,23 @@ namespace VisualComputing2
             this.pictureBox1.Size = new System.Drawing.Size(1852, 983);
             this.pictureBox1.TabIndex = 48;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            // 
+            // btnResetSimulation
+            // 
+            this.btnResetSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetSimulation.Location = new System.Drawing.Point(1095, 566);
+            this.btnResetSimulation.Margin = new System.Windows.Forms.Padding(2);
+            this.btnResetSimulation.Name = "btnResetSimulation";
+            this.btnResetSimulation.Size = new System.Drawing.Size(150, 29);
+            this.btnResetSimulation.TabIndex = 49;
+            this.btnResetSimulation.Text = "Reset";
+            this.btnResetSimulation.UseVisualStyleBackColor = true;
+            this.btnResetSimulation.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // shapeBindingSource
+            // 
+            this.shapeBindingSource.DataSource = typeof(VisualComputing2.Entity.Shape);
             // 
             // DropDownList
             // 
@@ -451,12 +477,13 @@ namespace VisualComputing2
             this.checkboxFriction.Text = "Reibung";
             this.checkboxFriction.UseVisualStyleBackColor = true;
             // 
-            // ModSimWindow
+            // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(2607, 1524);
+            this.ClientSize = new System.Drawing.Size(1422, 833);
+            this.Controls.Add(this.btnResetSimulation);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.DataGridView);

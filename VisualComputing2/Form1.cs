@@ -27,9 +27,11 @@ namespace VisualComputing2
 
 
         List<Entity> entities = new List<Entity>();
+        List<Entity> resetCopy = new List<Entity>();
         Entity selectedEntity;
 
         bool enableDebug;
+        bool isFirstStart = true;
         public static bool useGravity = true;
 
         public Form1()
@@ -40,20 +42,22 @@ namespace VisualComputing2
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
 
-            entities.Add(new Entity(new Vector2(200, 500), true, 10f));
+            
+            entities.Add(new Entity(new Vector2(200, 400), true, 10f));
             entities.Add(new Entity(new Vector2(200, 200), 50f, 30f, 20f));
-            entities.Add(new Entity(new Vector2(Width / 2, 0), Width, 20f, 0f));
-            entities.Add(new Entity(new Vector2(Width / 2, Height-40), Width, 20f, 0f));
-            entities.Add(new Entity(new Vector2(0, (Height-20) / 2), 20f, Height, 0f));
-            entities.Add(new Entity(new Vector2(Width -20, (Height - 20) / 2), 20f, Height, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width / 2, 0), pictureBox1.Width, 20f, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), pictureBox1.Width, 20f, 0f));
+            entities.Add(new Entity(new Vector2(0, (pictureBox1.Height -20) / 2), 20f, pictureBox1.Height, 0f));
+            entities.Add(new Entity(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), 20f, pictureBox1.Height, 0f));
+            entities.Add(new Entity(new Vector2(300, 500), 300, 20f, 0f));
 
-            entities[0].Velocity = new Vector2(5, -40);
+            entities[0].Velocity = new Vector2(100, -40);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             timerInterval = timer1.Interval;
-            //enableDebug = enableDebugDrawCheck.Checked;
-            bufl = new Bitmap(this.Width, this.Height);
+            enableDebug = true; //enableDebugDrawCheck.Checked;
+            bufl = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
         // https://gamedev.stackexchange.com/questions/67651/what-is-the-standard-c-windows-forms-game-loop
@@ -88,6 +92,19 @@ namespace VisualComputing2
 
         new void Update()
         {
+            //if(selectedEntity == null) 
+            //{
+            //    posXBox.Clear();
+            //    posYBox.Clear();
+            //    velXBox.Clear();
+            //    velYBox.Clear();
+            //} else
+            //{
+            //    posXBox.Text = selectedEntity.Position.X.ToString();
+            //    posYBox.Text = selectedEntity.Position.Y.ToString();
+            //    velXBox.Text = selectedEntity.Velocity.X.ToString();
+            //    velYBox.Text = selectedEntity.Velocity.Y.ToString();
+            //}
         }
 
         void Render()
@@ -116,7 +133,7 @@ namespace VisualComputing2
                         {
                             points[i] = new PointF(pointsVec[i].X, pointsVec[i].Y);
                         }
-                        g.FillPolygon(Brushes.Gray, points);
+                        g.DrawPolygon(Pens.Gray, points);
                         if (enableDebug)
                         {
                             for (int i = 0; i < pointsVec.Length; i++)
@@ -159,7 +176,7 @@ namespace VisualComputing2
                     g.DrawEllipse(Pens.Turquoise, selectedEntity.Position.X - selectedEntity.Radius, selectedEntity.Position.Y - selectedEntity.Radius, selectedEntity.Diameter(), selectedEntity.Diameter());
                 }
                 //Draw finished Image
-                this.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                pictureBox1.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
             }
 
             //g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0,0, Size.Width, Size.Height));
@@ -177,23 +194,75 @@ namespace VisualComputing2
                     entity.Update(timerInterval);
                     if (entity.canMove)
                     {
-                        checkCollision(entity);
+                        foreach (Entity rechteck in entities)
+                        {
+                            if (rechteck == entity) continue;
+                            else
+                            {
+                                if (checkCollision(entity, rechteck))
+                                {
+                                    
+                                    
+                                    
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }
-
         }
 
-        private void checkCollision(Entity e)
+        private bool checkCollision(Entity kreis, Entity rechteck)
         {
-            foreach(Entity entity in entities)
-            {
-                if (entity == e) return; // Dont check if its the same object
-                if(entity.EShape == Entity.Shape.Rectangle)
+           
+                
+                if (rechteck.EShape == Entity.Shape.Rectangle) //Check for rectangles
                 {
+                    if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
+                    {
 
+
+
+//                         Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
+//                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
+//                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
+//                         if (abstand.X <= (rechteck.Dimension.X / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+//                     }
+//                         if (abstand.Y <= (rechteck.Dimension.Y / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+//                         }
+//                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+//                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
+                    }
+                else // Funktioniert noch nicht, dont bother
+                {
+                    for (int i = 0; i < rechteck.ShapeVectors.Length; i++)
+                    {
+
+                        Vector2 distanceToSphere = rechteck.Points[i] - kreis.Position;
+                        float shapeVectorLength = rechteck.ShapeVectors[i].Length();
+
+                        float dotProduct = Vector2.Dot(distanceToSphere, rechteck.Normals[i]);
+
+                        Vector2 pointOnLine = rechteck.Normals[i] * dotProduct;
+                        
+                        Vector2 output = pointOnLine + rechteck.ShapeVectors[i];
+                        if ((kreis.Position - output).Length() <= kreis.Radius)
+                        {
+                            Console.WriteLine("Collision!!!");
+                            kreis.Velocity = Vector2.Zero;
+                        }
+
+                    }
                 }
+
+
             }
+            return false;
         }
 
         private void EnableDebugDraw_CheckedChanged(object sender, EventArgs e)
@@ -203,26 +272,6 @@ namespace VisualComputing2
 
         private void Form1_MouseClick(object sender, MouseEventArgs me) 
         {
-            bool eFound = false;
-            foreach (Entity entity in entities)
-            {
-                if (entity.Position.X-entity.Radius <= me.X && entity.Position.X + entity.Radius >= me.X) 
-                {
-                    if (entity.Position.Y - entity.Radius <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
-                    {
-                        //currentObjectLabel.Text = "Current Object: " + entity.ToString();
-                        selectedEntity = entity;
-                        eFound = true;
-                        break;
-                    }
-                    
-                } continue;
-            }
-            if (!eFound) 
-            {
-                selectedEntity = null;
-               // currentObjectLabel.Text = "Current Object: None";
-            }
         }
 
         private void startPosition_Click(object sender, EventArgs e)
@@ -299,6 +348,63 @@ namespace VisualComputing2
         private void btnStartSimulation_Click(object sender, EventArgs e)
         {
             runSimulation = !runSimulation;
+            if (runSimulation)
+            {
+                btnStartSimulation.Text = "Pause";
+                if (isFirstStart)
+                {
+                    foreach (Entity entity in entities)
+                    {
+                        entity.startVelocity = entity.Velocity;
+                        entity.startPosition = entity.Position;
+                    }
+                    isFirstStart = false;
+                }
+            }
+            else
+            {
+                btnStartSimulation.Text = "Start";
+            }
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs me)
+        {
+            bool eFound = false;
+            foreach (Entity entity in entities)
+            {
+                if (entity.Position.X - entity.Radius <= me.X && entity.Position.X + entity.Radius >= me.X)
+                {
+                    if (entity.Position.Y - entity.Radius <= me.Y && entity.Position.Y + entity.Radius >= me.Y)
+                    {
+                        //currentObjectLabel.Text = "Current Object: " + entity.ToString();
+                        selectedEntity = entity;
+                        eFound = true;
+                        break;
+                    }
+
+                }
+                continue;
+            }
+            if (!eFound)
+            {
+                selectedEntity = null;
+                //currentObjectLabel.Text = "Current Object: None";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Entity entity in entities)
+            {
+                entity.Position = entity.startPosition;
+                entity.Velocity = entity.startVelocity;
+                entity.Acceleration = Vector2.Zero;
+            }
+            isFirstStart = true;
+        }
+
+        private void addSphere_Click(object sender, EventArgs e)
+        { 
         }
 
         private void label1_Click_2(object sender, EventArgs e)
