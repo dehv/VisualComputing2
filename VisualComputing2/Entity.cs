@@ -30,6 +30,9 @@ namespace VisualComputing2
         public Vector2[] ShapeVectors;
         public Vector2[] Normals;
 
+        public Vector2 startPosition;
+        public Vector2 startVelocity;
+
 
         public enum Shape 
         {
@@ -121,7 +124,7 @@ namespace VisualComputing2
         public void Update(float timerInterval) 
         {
             //Velocity Verlet Calculation
-            timerInterval = 1 /timerInterval;
+            timerInterval = 0.05f;
             if (!canMove) return;
             Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
             Vector2 newAcceleration = ApplyForces();

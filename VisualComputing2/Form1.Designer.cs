@@ -65,7 +65,7 @@ namespace VisualComputing2
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // numbSphere
@@ -118,7 +118,7 @@ namespace VisualComputing2
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(180, 133);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(59, 20);
             this.textBox2.TabIndex = 9;
@@ -126,7 +126,7 @@ namespace VisualComputing2
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(180, 90);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(41, 20);
             this.textBox3.TabIndex = 10;
@@ -134,7 +134,7 @@ namespace VisualComputing2
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(258, 90);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(42, 20);
             this.textBox4.TabIndex = 11;
@@ -167,7 +167,7 @@ namespace VisualComputing2
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(180, 47);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(59, 20);
             this.textBox5.TabIndex = 15;
@@ -176,7 +176,7 @@ namespace VisualComputing2
             // 
             this.addSphere.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addSphere.Location = new System.Drawing.Point(200, 220);
-            this.addSphere.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addSphere.Margin = new System.Windows.Forms.Padding(2);
             this.addSphere.Name = "addSphere";
             this.addSphere.Size = new System.Drawing.Size(145, 31);
             this.addSphere.TabIndex = 16;
@@ -188,7 +188,7 @@ namespace VisualComputing2
             // 
             this.btnStartSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartSimulation.Location = new System.Drawing.Point(1249, 566);
-            this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(2);
             this.btnStartSimulation.Name = "btnStartSimulation";
             this.btnStartSimulation.Size = new System.Drawing.Size(150, 29);
             this.btnStartSimulation.TabIndex = 18;
@@ -206,7 +206,7 @@ namespace VisualComputing2
             this.positionY,
             this.collision});
             this.dataGridView1.Location = new System.Drawing.Point(4, 17);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 72;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -264,9 +264,9 @@ namespace VisualComputing2
             this.controlsGroup.Controls.Add(this.yAxis);
             this.controlsGroup.Controls.Add(this.textBox5);
             this.controlsGroup.Location = new System.Drawing.Point(26, 28);
-            this.controlsGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.controlsGroup.Margin = new System.Windows.Forms.Padding(2);
             this.controlsGroup.Name = "controlsGroup";
-            this.controlsGroup.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.controlsGroup.Padding = new System.Windows.Forms.Padding(2);
             this.controlsGroup.Size = new System.Drawing.Size(374, 574);
             this.controlsGroup.TabIndex = 43;
             this.controlsGroup.TabStop = false;
@@ -276,9 +276,9 @@ namespace VisualComputing2
             // 
             this.DataGridView.Controls.Add(this.dataGridView1);
             this.DataGridView.Location = new System.Drawing.Point(654, 608);
-            this.DataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.DataGridView.Name = "DataGridView";
-            this.DataGridView.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DataGridView.Padding = new System.Windows.Forms.Padding(2);
             this.DataGridView.Size = new System.Drawing.Size(742, 199);
             this.DataGridView.TabIndex = 45;
             this.DataGridView.TabStop = false;
@@ -287,7 +287,7 @@ namespace VisualComputing2
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(405, 44);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(994, 518);
             this.pictureBox1.TabIndex = 48;

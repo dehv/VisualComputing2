@@ -27,9 +27,11 @@ namespace VisualComputing2
 
 
         List<Entity> entities = new List<Entity>();
+        List<Entity> resetCopy = new List<Entity>();
         Entity selectedEntity;
 
         bool enableDebug;
+        bool isFirstStart = true;
         public static bool useGravity = true;
 
         public Form1()
@@ -49,7 +51,7 @@ namespace VisualComputing2
             entities.Add(new Entity(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), 20f, pictureBox1.Height, 0f));
             entities.Add(new Entity(new Vector2(300, 500), 300, 20f, 0f));
 
-            entities[0].Velocity = new Vector2(5, -40);
+            entities[0].Velocity = new Vector2(100, -40);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -200,7 +202,7 @@ namespace VisualComputing2
                                 if (checkCollision(entity, rechteck))
                                 {
                                     
-                                    entity.Velocity = Vector2.Reflect(entity.Velocity, rechteck.Normals[3]);
+                                    
                                     
                                 }
                             }
@@ -219,11 +221,17 @@ namespace VisualComputing2
                 {
                     if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
                     {
-                        Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position);
+                        Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
-                        if (abstand.X <= (rechteck.Dimension.X / 2)) return true;
-                        if (abstand.Y <= (rechteck.Dimension.Y / 2)) return true;
+                        if (abstand.X <= (rechteck.Dimension.X / 2))
+                        {
+                        kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+                    }
+                        if (abstand.Y <= (rechteck.Dimension.Y / 2))
+                        {
+                        kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+                        }
                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
                     }
@@ -340,6 +348,15 @@ namespace VisualComputing2
             if (runSimulation)
             {
                 btnStartSimulation.Text = "Pause";
+                if (isFirstStart)
+                {
+                    foreach (Entity entity in entities)
+                    {
+                        entity.startVelocity = entity.Velocity;
+                        entity.startPosition = entity.Position;
+                    }
+                    isFirstStart = false;
+                }
             }
             else
             {
@@ -374,7 +391,13 @@ namespace VisualComputing2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            foreach (Entity entity in entities)
+            {
+                entity.Position = entity.startPosition;
+                entity.Velocity = entity.startVelocity;
+                entity.Acceleration = Vector2.Zero;
+            }
+            isFirstStart = true;
         }
 
         private void addSphere_Click(object sender, EventArgs e)
