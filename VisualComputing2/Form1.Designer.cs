@@ -31,9 +31,7 @@ namespace VisualComputing2
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-
             this.objectName = new System.Windows.Forms.Label();
-
             this.startPosition = new System.Windows.Forms.Label();
             this.startVelocity = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -41,7 +39,6 @@ namespace VisualComputing2
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.xAcis = new System.Windows.Forms.Label();
             this.yAxis = new System.Windows.Forms.Label();
-
             this.textboxObjectName = new System.Windows.Forms.TextBox();
             this.addObject = new System.Windows.Forms.Button();
             this.btnStartSimulation = new System.Windows.Forms.Button();
@@ -52,31 +49,29 @@ namespace VisualComputing2
             this.positionY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.collision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.controlsGroup = new System.Windows.Forms.GroupBox();
-            this.DataGridView = new System.Windows.Forms.GroupBox();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.DropDownList = new System.Windows.Forms.ComboBox();
-            this.colorObject = new System.Windows.Forms.Label();
-            this.textboxColorObject = new System.Windows.Forms.TextBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.impacts = new System.Windows.Forms.GroupBox();
+            this.checkboxFriction = new System.Windows.Forms.CheckBox();
+            this.checkboxWind = new System.Windows.Forms.CheckBox();
+            this.checkboxGravitation = new System.Windows.Forms.CheckBox();
+            this.weight = new System.Windows.Forms.Label();
+            this.radius = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.radius = new System.Windows.Forms.Label();
-            this.weight = new System.Windows.Forms.Label();
-            this.impacts = new System.Windows.Forms.GroupBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.checkboxGravitation = new System.Windows.Forms.CheckBox();
-            this.checkboxWind = new System.Windows.Forms.CheckBox();
-            this.checkboxFriction = new System.Windows.Forms.CheckBox();
-
+            this.textboxColorObject = new System.Windows.Forms.TextBox();
+            this.colorObject = new System.Windows.Forms.Label();
+            this.DropDownList = new System.Windows.Forms.ComboBox();
+            this.DataGridView = new System.Windows.Forms.GroupBox();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controlsGroup.SuspendLayout();
+            this.impacts.SuspendLayout();
             this.DataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-
-            this.impacts.SuspendLayout();
 
             this.SuspendLayout();
             // 
@@ -90,7 +85,7 @@ namespace VisualComputing2
             // 
             this.objectName.AutoSize = true;
             this.objectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.objectName.Location = new System.Drawing.Point(40, 142);
+            this.objectName.Location = new System.Drawing.Point(40, 120);
             this.objectName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.objectName.Name = "objectName";
             this.objectName.Size = new System.Drawing.Size(200, 25);
@@ -114,7 +109,7 @@ namespace VisualComputing2
             // 
             this.startVelocity.AutoSize = true;
             this.startVelocity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startVelocity.Location = new System.Drawing.Point(40, 329);
+            this.startVelocity.Location = new System.Drawing.Point(40, 335);
             this.startVelocity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startVelocity.Name = "startVelocity";
             this.startVelocity.Size = new System.Drawing.Size(210, 25);
@@ -124,16 +119,15 @@ namespace VisualComputing2
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(152, 401);
+            this.textBox2.Location = new System.Drawing.Point(126, 418);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(124, 29);
+            this.textBox2.Size = new System.Drawing.Size(200, 29);
             this.textBox2.TabIndex = 9;
             // 
             // textBox3
             // 
-
-            this.textBox3.Location = new System.Drawing.Point(305, 266);
+            this.textBox3.Location = new System.Drawing.Point(109, 301);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(41, 20);
@@ -141,8 +135,7 @@ namespace VisualComputing2
             // 
             // textBox4
             // 
-
-            this.textBox4.Location = new System.Drawing.Point(448, 266);
+            this.textBox4.Location = new System.Drawing.Point(252, 301);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(42, 20);
@@ -153,7 +146,7 @@ namespace VisualComputing2
             // 
             this.xAcis.AutoSize = true;
             this.xAcis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xAcis.Location = new System.Drawing.Point(269, 262);
+            this.xAcis.Location = new System.Drawing.Point(73, 297);
             this.xAcis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.xAcis.Name = "xAcis";
             this.xAcis.Size = new System.Drawing.Size(15, 15);
@@ -165,7 +158,7 @@ namespace VisualComputing2
             // 
             this.yAxis.AutoSize = true;
             this.yAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yAxis.Location = new System.Drawing.Point(415, 262);
+            this.yAxis.Location = new System.Drawing.Point(219, 298);
             this.yAxis.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.yAxis.Name = "yAxis";
             this.yAxis.Size = new System.Drawing.Size(14, 15);
@@ -175,16 +168,16 @@ namespace VisualComputing2
             // 
             // textboxObjectName
             // 
-            this.textboxObjectName.Location = new System.Drawing.Point(267, 140);
+            this.textboxObjectName.Location = new System.Drawing.Point(45, 149);
             this.textboxObjectName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxObjectName.Name = "textboxObjectName";
-            this.textboxObjectName.Size = new System.Drawing.Size(374, 29);
+            this.textboxObjectName.Size = new System.Drawing.Size(320, 29);
             this.textboxObjectName.TabIndex = 15;
             // 
             // addObject
             // 
             this.addObject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addObject.Location = new System.Drawing.Point(376, 816);
+            this.addObject.Location = new System.Drawing.Point(100, 727);
             this.addObject.Margin = new System.Windows.Forms.Padding(4);
             this.addObject.Name = "addObject";
             this.addObject.Size = new System.Drawing.Size(265, 57);
@@ -195,7 +188,7 @@ namespace VisualComputing2
             // btnStartSimulation
             // 
             this.btnStartSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartSimulation.Location = new System.Drawing.Point(2289, 1064);
+            this.btnStartSimulation.Location = new System.Drawing.Point(1608, 707);
             this.btnStartSimulation.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartSimulation.Name = "btnStartSimulation";
             this.btnStartSimulation.Size = new System.Drawing.Size(150, 29);
@@ -218,7 +211,7 @@ namespace VisualComputing2
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 72;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(728, 182);
+            this.dataGridView1.Size = new System.Drawing.Size(1176, 240);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -281,101 +274,89 @@ namespace VisualComputing2
             this.controlsGroup.Controls.Add(this.textBox4);
             this.controlsGroup.Controls.Add(this.yAxis);
             this.controlsGroup.Controls.Add(this.textboxObjectName);
-            this.controlsGroup.Location = new System.Drawing.Point(32, 52);
+            this.controlsGroup.Location = new System.Drawing.Point(13, 30);
             this.controlsGroup.Margin = new System.Windows.Forms.Padding(4);
             this.controlsGroup.Name = "controlsGroup";
             this.controlsGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.controlsGroup.Size = new System.Drawing.Size(678, 1438);
+            this.controlsGroup.Size = new System.Drawing.Size(414, 957);
             this.controlsGroup.TabIndex = 43;
             this.controlsGroup.TabStop = false;
             this.controlsGroup.Text = "Objekte und Parameter";
             // 
-            // DataGridView
+            // textBox6
             // 
-            this.DataGridView.Controls.Add(this.dataGridView1);
-            this.DataGridView.Location = new System.Drawing.Point(718, 1122);
-            this.DataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.DataGridView.Name = "DataGridView";
-            this.DataGridView.Padding = new System.Windows.Forms.Padding(4);
-            this.DataGridView.Size = new System.Drawing.Size(1841, 368);
-            this.DataGridView.TabIndex = 45;
-            this.DataGridView.TabStop = false;
-            this.DataGridView.Text = "RealTimeData";
+            this.textBox6.Location = new System.Drawing.Point(126, 466);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(200, 29);
+            this.textBox6.TabIndex = 27;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
-            // btnReset
+            // impacts
             // 
-            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(2006, 1064);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(275, 54);
-            this.btnReset.TabIndex = 46;
-            this.btnReset.Text = "Reset";
-            this.btnReset.UseVisualStyleBackColor = true;
+            this.impacts.Controls.Add(this.checkboxFriction);
+            this.impacts.Controls.Add(this.checkboxWind);
+            this.impacts.Controls.Add(this.checkboxGravitation);
+            this.impacts.Location = new System.Drawing.Point(49, 531);
+            this.impacts.Name = "impacts";
+            this.impacts.Size = new System.Drawing.Size(316, 172);
+            this.impacts.TabIndex = 26;
+            this.impacts.TabStop = false;
+            this.impacts.Text = "Einflüsse";
             // 
-            // pictureBox1
+            // checkboxFriction
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(718, 63);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1852, 983);
-            this.pictureBox1.TabIndex = 48;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            this.checkboxFriction.AutoSize = true;
+            this.checkboxFriction.Location = new System.Drawing.Point(90, 132);
+            this.checkboxFriction.Name = "checkboxFriction";
+            this.checkboxFriction.Size = new System.Drawing.Size(110, 29);
+            this.checkboxFriction.TabIndex = 6;
+            this.checkboxFriction.Text = "Reibung";
+            this.checkboxFriction.UseVisualStyleBackColor = true;
             // 
-            // btnResetSimulation
+            // checkboxWind
             // 
-            this.btnResetSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetSimulation.Location = new System.Drawing.Point(1095, 566);
-            this.btnResetSimulation.Margin = new System.Windows.Forms.Padding(2);
-            this.btnResetSimulation.Name = "btnResetSimulation";
-            this.btnResetSimulation.Size = new System.Drawing.Size(150, 29);
-            this.btnResetSimulation.TabIndex = 49;
-            this.btnResetSimulation.Text = "Reset";
-            this.btnResetSimulation.UseVisualStyleBackColor = true;
-            this.btnResetSimulation.Click += new System.EventHandler(this.button1_Click);
+            this.checkboxWind.AutoSize = true;
+            this.checkboxWind.Location = new System.Drawing.Point(90, 84);
+            this.checkboxWind.Name = "checkboxWind";
+            this.checkboxWind.Size = new System.Drawing.Size(84, 29);
+            this.checkboxWind.TabIndex = 5;
+            this.checkboxWind.Text = "Wind";
+            this.checkboxWind.UseVisualStyleBackColor = true;
             // 
-            // shapeBindingSource
+            // checkboxGravitation
             // 
-            this.shapeBindingSource.DataSource = typeof(VisualComputing2.Entity.Shape);
+            this.checkboxGravitation.AutoSize = true;
+            this.checkboxGravitation.Location = new System.Drawing.Point(90, 37);
+            this.checkboxGravitation.Name = "checkboxGravitation";
+            this.checkboxGravitation.Size = new System.Drawing.Size(131, 29);
+            this.checkboxGravitation.TabIndex = 4;
+            this.checkboxGravitation.Text = "Gravitation";
+            this.checkboxGravitation.UseVisualStyleBackColor = true;
             // 
-            // DropDownList
+            // weight
             // 
-            this.DropDownList.DropDownHeight = 160;
-            this.DropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DropDownList.DropDownWidth = 240;
-            this.DropDownList.FormattingEnabled = true;
-            this.DropDownList.IntegralHeight = false;
-            this.DropDownList.Location = new System.Drawing.Point(45, 66);
-            this.DropDownList.Name = "DropDownList";
-            this.DropDownList.Size = new System.Drawing.Size(596, 32);
-            this.DropDownList.TabIndex = 17;
+            this.weight.AutoSize = true;
+            this.weight.Location = new System.Drawing.Point(44, 470);
+            this.weight.Name = "weight";
+            this.weight.Size = new System.Drawing.Size(71, 25);
+            this.weight.TabIndex = 25;
+            this.weight.Text = "Masse";
             // 
-            // colorObject
+            // radius
             // 
-            this.colorObject.AutoSize = true;
-            this.colorObject.Location = new System.Drawing.Point(40, 204);
-            this.colorObject.Name = "colorObject";
-            this.colorObject.Size = new System.Drawing.Size(183, 25);
-            this.colorObject.TabIndex = 18;
-            this.colorObject.Text = "Farbe des Objektes";
-            this.colorObject.Click += new System.EventHandler(this.label1_Click_2);
-            // 
-            // textboxColorObject
-            // 
-            this.textboxColorObject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textboxColorObject.Location = new System.Drawing.Point(267, 201);
-            this.textboxColorObject.Name = "textboxColorObject";
-            this.textboxColorObject.ReadOnly = true;
-            this.textboxColorObject.Size = new System.Drawing.Size(374, 29);
-            this.textboxColorObject.TabIndex = 19;
-            this.textboxColorObject.Text = "klicke um Farbe auszuwählen";
+            this.radius.AutoSize = true;
+            this.radius.Location = new System.Drawing.Point(43, 418);
+            this.radius.Name = "radius";
+            this.radius.Size = new System.Drawing.Size(72, 25);
+            this.radius.TabIndex = 24;
+            this.radius.Text = "Radius";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(269, 329);
+            this.label1.Location = new System.Drawing.Point(73, 367);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 25);
@@ -384,7 +365,7 @@ namespace VisualComputing2
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(305, 333);
+            this.textBox1.Location = new System.Drawing.Point(109, 367);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(71, 29);
@@ -392,7 +373,7 @@ namespace VisualComputing2
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(448, 333);
+            this.textBox5.Location = new System.Drawing.Point(252, 367);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(74, 29);
@@ -402,88 +383,84 @@ namespace VisualComputing2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(415, 329);
+            this.label2.Location = new System.Drawing.Point(219, 367);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 25);
             this.label2.TabIndex = 23;
             this.label2.Text = "Y";
             // 
-            // radius
+            // textboxColorObject
             // 
-            this.radius.AutoSize = true;
-            this.radius.Location = new System.Drawing.Point(40, 398);
-            this.radius.Name = "radius";
-            this.radius.Size = new System.Drawing.Size(72, 25);
-            this.radius.TabIndex = 24;
-            this.radius.Text = "Radius";
+            this.textboxColorObject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textboxColorObject.Location = new System.Drawing.Point(45, 223);
+            this.textboxColorObject.Name = "textboxColorObject";
+            this.textboxColorObject.ReadOnly = true;
+            this.textboxColorObject.Size = new System.Drawing.Size(320, 29);
+            this.textboxColorObject.TabIndex = 19;
+            this.textboxColorObject.Text = "klicke um Farbe auszuwählen";
             // 
-            // weight
+            // colorObject
             // 
-            this.weight.AutoSize = true;
-            this.weight.Location = new System.Drawing.Point(300, 401);
-            this.weight.Name = "weight";
-            this.weight.Size = new System.Drawing.Size(71, 25);
-            this.weight.TabIndex = 25;
-            this.weight.Text = "Masse";
+            this.colorObject.AutoSize = true;
+            this.colorObject.Location = new System.Drawing.Point(40, 191);
+            this.colorObject.Name = "colorObject";
+            this.colorObject.Size = new System.Drawing.Size(183, 25);
+            this.colorObject.TabIndex = 18;
+            this.colorObject.Text = "Farbe des Objektes";
+            this.colorObject.Click += new System.EventHandler(this.label1_Click_2);
             // 
-            // impacts
+            // DropDownList
             // 
-            this.impacts.Controls.Add(this.checkboxFriction);
-            this.impacts.Controls.Add(this.checkboxWind);
-            this.impacts.Controls.Add(this.checkboxGravitation);
-            this.impacts.Location = new System.Drawing.Point(45, 471);
-            this.impacts.Name = "impacts";
-            this.impacts.Size = new System.Drawing.Size(596, 306);
-            this.impacts.TabIndex = 26;
-            this.impacts.TabStop = false;
-            this.impacts.Text = "Einflüsse";
+            this.DropDownList.DropDownHeight = 160;
+            this.DropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropDownList.DropDownWidth = 240;
+            this.DropDownList.FormattingEnabled = true;
+            this.DropDownList.IntegralHeight = false;
+            this.DropDownList.Location = new System.Drawing.Point(45, 56);
+            this.DropDownList.Name = "DropDownList";
+            this.DropDownList.Size = new System.Drawing.Size(320, 32);
+            this.DropDownList.TabIndex = 17;
+            this.DropDownList.SelectedIndexChanged += new System.EventHandler(this.DropDownList_SelectedIndexChanged);
             // 
-            // textBox6
+            // DataGridView
             // 
-            this.textBox6.Location = new System.Drawing.Point(398, 398);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(124, 29);
-            this.textBox6.TabIndex = 27;
+            this.DataGridView.Controls.Add(this.dataGridView1);
+            this.DataGridView.Location = new System.Drawing.Point(435, 757);
+            this.DataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.DataGridView.Name = "DataGridView";
+            this.DataGridView.Padding = new System.Windows.Forms.Padding(4);
+            this.DataGridView.Size = new System.Drawing.Size(1448, 230);
+            this.DataGridView.TabIndex = 45;
+            this.DataGridView.TabStop = false;
+            this.DataGridView.Text = "RealTimeData";
             // 
-            // checkboxGravitation
+            // btnReset
             // 
-            this.checkboxGravitation.AutoSize = true;
-            this.checkboxGravitation.Location = new System.Drawing.Point(64, 80);
-            this.checkboxGravitation.Name = "checkboxGravitation";
-            this.checkboxGravitation.Size = new System.Drawing.Size(131, 29);
-            this.checkboxGravitation.TabIndex = 4;
-            this.checkboxGravitation.Text = "Gravitation";
-            this.checkboxGravitation.UseVisualStyleBackColor = true;
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(1325, 707);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(275, 54);
+            this.btnReset.TabIndex = 46;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
             // 
-            // checkboxWind
+            // pictureBox1
             // 
-            this.checkboxWind.AutoSize = true;
-            this.checkboxWind.Location = new System.Drawing.Point(64, 145);
-            this.checkboxWind.Name = "checkboxWind";
-            this.checkboxWind.Size = new System.Drawing.Size(84, 29);
-            this.checkboxWind.TabIndex = 5;
-            this.checkboxWind.Text = "Wind";
-            this.checkboxWind.UseVisualStyleBackColor = true;
-            // 
-            // checkboxFriction
-            // 
-            this.checkboxFriction.AutoSize = true;
-            this.checkboxFriction.Location = new System.Drawing.Point(64, 214);
-            this.checkboxFriction.Name = "checkboxFriction";
-            this.checkboxFriction.Size = new System.Drawing.Size(110, 29);
-            this.checkboxFriction.TabIndex = 6;
-            this.checkboxFriction.Text = "Reibung";
-            this.checkboxFriction.UseVisualStyleBackColor = true;
+            this.pictureBox1.Location = new System.Drawing.Point(435, 30);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1448, 669);
+            this.pictureBox1.TabIndex = 48;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1422, 833);
-            this.Controls.Add(this.btnResetSimulation);
+            this.ClientSize = new System.Drawing.Size(1896, 1016);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.DataGridView);
@@ -495,10 +472,10 @@ namespace VisualComputing2
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.controlsGroup.ResumeLayout(false);
             this.controlsGroup.PerformLayout();
-            this.DataGridView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.impacts.ResumeLayout(false);
             this.impacts.PerformLayout();
+            this.DataGridView.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
