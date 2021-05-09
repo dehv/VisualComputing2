@@ -305,5 +305,15 @@ namespace VisualComputing2
         {
 
         }
+
+        private void DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
