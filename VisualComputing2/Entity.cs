@@ -34,14 +34,20 @@ namespace VisualComputing2
         public Vector2[] ShapeVectors;
         public Vector2[] Normals;
 
+        //windbox
+        public Vector2 winddirection;
+        public float windspeed;
+
         public Vector2 startPosition;
         public Vector2 startVelocity;
+
 
 
         public enum Shape 
         {
             Sphere,
-            Rectangle
+            Rectangle,
+            Windbox
         }
 
         public Entity(Vector2 pos, Vector2 speed, String name, float mass, float radius, bool g, bool wind, bool drag)
@@ -68,17 +74,30 @@ namespace VisualComputing2
         }
 
         //Constructor for Rectangle
-        public Entity(Vector2 pos, float width, float hight, float rotation)
+        public Entity(Vector2 pos, float width, float height, float rotation)
         {
             Position = pos;
             this.canMove = false;
             EShape = Shape.Rectangle;
-            Dimension = new Vector2(width, hight);
+            Dimension = new Vector2(width, height);
             this.rotation = rotation;
             Points = GetRectPoints();
             Normals = GetNormals(Points);
             ShapeVectors = getShapeVectors(Points);
         }
+
+        //Constructor for Windbox
+        public Entity(Vector2 pos, float width, float height, float windspeed, Vector2 winddirection)
+        {
+            Position = pos;
+            this.canMove = false;
+            EShape = Shape.Windbox;
+            Dimension = new Vector2(width, height);
+            this.winddirection = Vector2.Normalize(winddirection);
+            this.windspeed = windspeed;
+        
+        }
+            
 
         public float Diameter() 
         {
