@@ -18,12 +18,16 @@ namespace VisualComputing2
         float mass = 1f;
         float drag = 0f;
         public bool canMove { get; set; }
+        public bool usesGravity;
+        public bool usesWind;
+        public bool usesDrag;
         
         public Shape EShape { get; }
 
         public float Radius { get; }
 
         public Color color;
+        public String name;
 
         public Vector2 Dimension { get; set; }
         public Vector2[] Points;
@@ -38,6 +42,19 @@ namespace VisualComputing2
         {
             Sphere,
             Rectangle
+        }
+
+        public Entity(Vector2 pos, Vector2 speed, String name, float mass, float radius, bool g, bool wind, bool drag)
+        {
+            Position = pos;
+            Velocity = speed;
+            this.name = name;
+            this.mass = mass;
+            Radius = radius;
+            usesGravity = g;
+            usesWind = wind;
+            usesDrag = drag;
+            this.canMove = true;
         }
 
         //Constructor for Sphere
@@ -138,7 +155,7 @@ namespace VisualComputing2
         private Vector2 ApplyForces()
         {
             Vector2 gravity = Vector2.Zero;
-            if (Form1.useGravity)
+            if (usesGravity)
             {
                 gravity = new Vector2(0, Form1.gravity);
             }

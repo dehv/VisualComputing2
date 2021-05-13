@@ -133,7 +133,7 @@ namespace VisualComputing2
                         {
                             points[i] = new PointF(pointsVec[i].X, pointsVec[i].Y);
                         }
-                        g.DrawPolygon(Pens.Gray, points);
+                        g.FillPolygon(Brushes.Gray, points);
                         if (enableDebug)
                         {
                             for (int i = 0; i < pointsVec.Length; i++)
@@ -254,7 +254,7 @@ namespace VisualComputing2
                         if ((kreis.Position - output).Length() <= kreis.Radius)
                         {
                             Console.WriteLine("Collision!!!");
-                            kreis.Velocity = Vector2.Zero;
+                            kreis.Velocity = Vector2.Reflect(kreis.Velocity, rechteck.Normals[i]);
                         }
 
                     }
@@ -392,17 +392,6 @@ namespace VisualComputing2
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            foreach (Entity entity in entities)
-            {
-                entity.Position = entity.startPosition;
-                entity.Velocity = entity.startVelocity;
-                entity.Acceleration = Vector2.Zero;
-            }
-            isFirstStart = true;
-        }
-
         private void addSphere_Click(object sender, EventArgs e)
         { 
         }
@@ -420,6 +409,32 @@ namespace VisualComputing2
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            foreach (Entity entity in entities)
+            {
+                entity.Position = entity.startPosition;
+                entity.Velocity = entity.startVelocity;
+                entity.Acceleration = Vector2.Zero;
+            }
+            isFirstStart = true;
+        }
+
+        private void addObject_Click(object sender, EventArgs e)
+        {
+            Entity toAdd = new Entity(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                new Vector2(float.Parse(startVelX.Text),
+                float.Parse(startVelY.Text)),
+                textboxObjectName.Text,
+                float.Parse(massBox.Text),
+                float.Parse(radiusBox.Text),
+                checkboxGravitation.Checked,
+                checkboxWind.Checked,
+                checkboxFriction.Checked);
+
+            entities.Add(toAdd);
         }
     }
 }
