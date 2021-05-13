@@ -49,6 +49,11 @@ namespace VisualComputing2
             entities.Add(new Entity(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), 20f, pictureBox1.Height, 0f));
             entities.Add(new Entity(new Vector2(300, 500), 300, 20f, 0f));
 
+            //windbox
+            entities.Add(new Entity(new Vector2(200, 400), 100f, 100f, 25f, new Vector2(5, -3)));
+
+
+
             entities[0].Velocity = new Vector2(5, -40);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -185,15 +190,30 @@ namespace VisualComputing2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             if (runSimulation)
             {
+                //für jedes Objekt in der entity liste soll update abgeführt werden
                 foreach (Entity entity in entities)
                 {
                     entity.Update(timerInterval);
+                    //wenn das Objekt bewegbar ist, 
                     if (entity.canMove)
                     {
                         foreach (Entity rechteck in entities)
                         {
+                            if(rechteck.EShape == Entity.Shape.Windbox)
+                            {
+                                Vector2 abstand = Vector2.Abs(entity.Position - rechteck.Position);
+                                bool inwindbox = false;
+                                if (abstand.X <= (rechteck.Dimension.X / 2)) inwindbox = true;
+                                if (abstand.Y <= (rechteck.Dimension.Y / 2)) inwindbox = true;
+                                float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+                                if (kAbstand_qd <= entity.Radius * entity.Radius) inwindbox = true;
+                                if (inwindbox) entity.Acceleration += rechteck.winddirection * rechteck.windspeed;
+
+                            }
+                            //wenn dasselbe Objekt ausgewählt wurde, dann ignorier das
                             if (rechteck == entity) continue;
                             else
                             {
