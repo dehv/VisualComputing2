@@ -8,13 +8,43 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Test|Any CPU = Test|Any CPU
+		Test|x64 = Test|x64
+		Test|x86 = Test|x86
+		Test1|Any CPU = Test1|Any CPU
+		Test1|x64 = Test1|x64
+		Test1|x86 = Test1|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|x64.ActiveCfg = Debug|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|x64.Build.0 = Debug|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|x86.ActiveCfg = Debug|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Debug|x86.Build.0 = Debug|x86
 		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|x64.ActiveCfg = Release|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|x64.Build.0 = Release|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|x86.ActiveCfg = Release|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Release|x86.Build.0 = Release|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|Any CPU.Build.0 = Test|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|x64.ActiveCfg = Test|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|x64.Build.0 = Test|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|x86.ActiveCfg = Test|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test|x86.Build.0 = Test|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|Any CPU.ActiveCfg = Test1|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|Any CPU.Build.0 = Test1|Any CPU
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|x64.ActiveCfg = Test|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|x64.Build.0 = Test|x64
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|x86.ActiveCfg = Test1|x86
+		{C85C35B1-CE72-44D3-8D70-BF83D7608096}.Test1|x86.Build.0 = Test1|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,9 +27,11 @@ namespace VisualComputing2
 
 
         List<Entity> entities = new List<Entity>();
+        List<Entity> resetCopy = new List<Entity>();
         Entity selectedEntity;
 
         bool enableDebug;
+        bool isFirstStart = true;
         public static bool useGravity = true;
 
         public Form1()
@@ -48,6 +50,7 @@ namespace VisualComputing2
             entities.Add(new Entity(new Vector2(0, (pictureBox1.Height -20) / 2), 20f, pictureBox1.Height, 0f));
             entities.Add(new Entity(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), 20f, pictureBox1.Height, 0f));
             entities.Add(new Entity(new Vector2(300, 500), 300, 20f, 0f));
+
 
             //windbox
             entities.Add(new Entity(new Vector2(200, 400), 100f, 100f, 25f, new Vector2(5, -3)));
@@ -220,7 +223,7 @@ namespace VisualComputing2
                                 if (checkCollision(entity, rechteck))
                                 {
                                     
-                                    entity.Velocity = Vector2.Reflect(entity.Velocity, rechteck.Normals[3]);
+                                    
                                     
                                 }
                             }
@@ -239,38 +242,47 @@ namespace VisualComputing2
                 {
                     if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
                     {
-                        Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position);
-                        if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
-                        if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
-                        if (abstand.X <= (rechteck.Dimension.X / 2)) return true;
-                        if (abstand.Y <= (rechteck.Dimension.Y / 2)) return true;
-                        float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
-                        return (kAbstand_qd <= kreis.Radius * kreis.Radius);
+
+
+
+//                         Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
+//                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
+//                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
+//                         if (abstand.X <= (rechteck.Dimension.X / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+//                     }
+//                         if (abstand.Y <= (rechteck.Dimension.Y / 2))
+//                         {
+//                         kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+//                         }
+//                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+//                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
                     }
-                    //else // Funktioniert noch nicht, dont bother
-                    //{
-                    //    for (int i = 0; i < entity.ShapeVectors.Length; i++)
-                    //    {
+                else // Funktioniert noch nicht, dont bother
+                {
+                    for (int i = 0; i < rechteck.ShapeVectors.Length; i++)
+                    {
 
-                    //        Vector2 distanceToSphere = entity.Points[i] - e.Position;
-                    //        float shapeVectorLength = entity.ShapeVectors[i].Length();
+                        Vector2 distanceToSphere = rechteck.Points[i] - kreis.Position;
+                        float shapeVectorLength = rechteck.ShapeVectors[i].Length();
 
-                    //        float dotProduct = Vector2.Dot(distanceToSphere, entity.Normals[i]);
+                        float dotProduct = Vector2.Dot(distanceToSphere, rechteck.Normals[i]);
 
-                    //        Vector2 pointOnLine = entity.Normals[i] * dotProduct;
+                        Vector2 pointOnLine = rechteck.Normals[i] * dotProduct;
+                        
+                        Vector2 output = pointOnLine + rechteck.ShapeVectors[i];
+                        if ((kreis.Position - output).Length() <= kreis.Radius)
+                        {
+                            Console.WriteLine("Collision!!!");
+                            kreis.Velocity = Vector2.Reflect(kreis.Velocity, rechteck.Normals[i]);
+                        }
 
-                    //        Vector2 output = pointOnLine + entity.ShapeVectors[i];
-                    //        if ((e.Position - output).Length() <= e.Radius)
-                    //        {
-                    //            Console.WriteLine("Collision!!!");
-                    //            e.Velocity = Vector2.Zero;
-                    //        }
-
-                    //    }
-                    //}
-                    
-                    
+                    }
                 }
+
+
+            }
             return false;
         }
 
@@ -360,6 +372,15 @@ namespace VisualComputing2
             if (runSimulation)
             {
                 btnStartSimulation.Text = "Pause";
+                if (isFirstStart)
+                {
+                    foreach (Entity entity in entities)
+                    {
+                        entity.startVelocity = entity.Velocity;
+                        entity.startPosition = entity.Position;
+                    }
+                    isFirstStart = false;
+                }
             }
             else
             {
@@ -392,13 +413,49 @@ namespace VisualComputing2
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void addSphere_Click(object sender, EventArgs e)
         { 
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            foreach (Entity entity in entities)
+            {
+                entity.Position = entity.startPosition;
+                entity.Velocity = entity.startVelocity;
+                entity.Acceleration = Vector2.Zero;
+            }
+            isFirstStart = true;
+        }
+
+        private void addObject_Click(object sender, EventArgs e)
+        {
+            Entity toAdd = new Entity(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                new Vector2(float.Parse(startVelX.Text),
+                float.Parse(startVelY.Text)),
+                textboxObjectName.Text,
+                float.Parse(massBox.Text),
+                float.Parse(radiusBox.Text),
+                checkboxGravitation.Checked,
+                checkboxWind.Checked,
+                checkboxFriction.Checked);
+
+            entities.Add(toAdd);
         }
     }
 }

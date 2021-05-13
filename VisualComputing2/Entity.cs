@@ -18,12 +18,16 @@ namespace VisualComputing2
         float mass = 1f;
         float drag = 0f;
         public bool canMove { get; set; }
+        public bool usesGravity;
+        public bool usesWind;
+        public bool usesDrag;
         
         public Shape EShape { get; }
 
         public float Radius { get; }
 
         public Color color;
+        public String name;
 
         public Vector2 Dimension { get; set; }
         public Vector2[] Points;
@@ -34,12 +38,29 @@ namespace VisualComputing2
         public Vector2 winddirection;
         public float windspeed;
 
+        public Vector2 startPosition;
+        public Vector2 startVelocity;
+
+
 
         public enum Shape 
         {
             Sphere,
             Rectangle,
             Windbox
+        }
+
+        public Entity(Vector2 pos, Vector2 speed, String name, float mass, float radius, bool g, bool wind, bool drag)
+        {
+            Position = pos;
+            Velocity = speed;
+            this.name = name;
+            this.mass = mass;
+            Radius = radius;
+            usesGravity = g;
+            usesWind = wind;
+            usesDrag = drag;
+            this.canMove = true;
         }
 
         //Constructor for Sphere
@@ -139,7 +160,7 @@ namespace VisualComputing2
         public void Update(float timerInterval) 
         {
             //Velocity Verlet Calculation
-            timerInterval = 1 /timerInterval;
+            timerInterval = 0.05f;
             if (!canMove) return;
             Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
             Vector2 newAcceleration = ApplyForces();
@@ -153,7 +174,7 @@ namespace VisualComputing2
         private Vector2 ApplyForces()
         {
             Vector2 gravity = Vector2.Zero;
-            if (Form1.useGravity)
+            if (usesGravity)
             {
                 gravity = new Vector2(0, Form1.gravity);
             }
