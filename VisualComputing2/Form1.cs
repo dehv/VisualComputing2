@@ -53,7 +53,7 @@ namespace VisualComputing2
 
 
             //windbox
-            entities.Add(new Entity(new Vector2(200, 400), 100f, 100f, 25f, new Vector2(5, -3)));
+            entities.Add(new Entity(new Vector2(200, 400), 400f, 100f, 50f, new Vector2(4, 0)));
 
 
 
@@ -168,6 +168,11 @@ namespace VisualComputing2
                         }
                     }
 
+                    if(entity.EShape == Entity.Shape.Windbox)
+                    {
+                        g.DrawRectangle(Pens.Aqua, entity.Position.X - 0.5f * entity.Dimension.X, entity.Position.Y - 0.5f * entity.Dimension.Y, entity.Dimension.X, entity.Dimension.Y);
+                    }
+
                     //Debug Drawing
                     if (entity.canMove && enableDebug) 
                     {
@@ -209,12 +214,14 @@ namespace VisualComputing2
                             {
                                 Vector2 abstand = Vector2.Abs(entity.Position - rechteck.Position);
                                 bool inwindbox = false;
-                                if (abstand.X <= (rechteck.Dimension.X / 2)) inwindbox = true;
-                                if (abstand.Y <= (rechteck.Dimension.Y / 2)) inwindbox = true;
+                                if (abstand.X <= (rechteck.Dimension.X / 2) && abstand.Y <= (rechteck.Dimension.Y / 2)) inwindbox = true;
                                 float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
                                 if (kAbstand_qd <= entity.Radius * entity.Radius) inwindbox = true;
-                                if (inwindbox) entity.Acceleration += rechteck.winddirection * rechteck.windspeed;
-
+                                if (inwindbox)
+                                {
+                                    entity.Acceleration += rechteck.winddirection * rechteck.windspeed;
+                                    Console.WriteLine("Inside!" + entity.Position.ToString());
+                                }
                             }
                             //wenn dasselbe Objekt ausgewählt wurde, dann ignorier das
                             if (rechteck == entity) continue;

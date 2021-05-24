@@ -160,7 +160,7 @@ namespace VisualComputing2
         public void Update(float timerInterval) 
         {
             //Velocity Verlet Calculation
-            timerInterval = 0.05f;
+            timerInterval = 0.1f;
             if (!canMove) return;
             Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
             Vector2 newAcceleration = ApplyForces();
