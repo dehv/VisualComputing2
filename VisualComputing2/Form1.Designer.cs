@@ -63,19 +63,15 @@ namespace VisualComputing2
             this.textboxColorObject = new System.Windows.Forms.TextBox();
             this.colorObject = new System.Windows.Forms.Label();
             this.DropDownList = new System.Windows.Forms.ComboBox();
-            this.shapeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.DataGridView = new System.Windows.Forms.GroupBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.shapeBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controlsGroup.SuspendLayout();
             this.impacts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shapeBindingSource)).BeginInit();
             this.DataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shapeBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -415,7 +411,6 @@ namespace VisualComputing2
             // 
             // DropDownList
             // 
-            this.DropDownList.DataSource = this.shapeBindingSource;
             this.DropDownList.DropDownHeight = 160;
             this.DropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DropDownList.DropDownWidth = 240;
@@ -426,10 +421,6 @@ namespace VisualComputing2
             this.DropDownList.Size = new System.Drawing.Size(320, 21);
             this.DropDownList.TabIndex = 17;
             this.DropDownList.SelectedIndexChanged += new System.EventHandler(this.DropDownList_SelectedIndexChanged);
-            // 
-            // shapeBindingSource
-            // 
-            this.shapeBindingSource.DataSource = typeof(VisualComputing2.Entity.Shape);
             // 
             // DataGridView
             // 
@@ -464,10 +455,6 @@ namespace VisualComputing2
             this.pictureBox1.TabIndex = 48;
             this.pictureBox1.TabStop = false;
             // 
-            // shapeBindingSource1
-            // 
-            this.shapeBindingSource1.DataSource = typeof(VisualComputing2.Entity.Shape);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -487,10 +474,8 @@ namespace VisualComputing2
             this.controlsGroup.PerformLayout();
             this.impacts.ResumeLayout(false);
             this.impacts.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shapeBindingSource)).EndInit();
             this.DataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shapeBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -534,8 +519,6 @@ namespace VisualComputing2
         private System.Windows.Forms.CheckBox checkboxGravitation;
         private System.Windows.Forms.Label weight;
         private System.Windows.Forms.Label radius;
-        private System.Windows.Forms.BindingSource shapeBindingSource;
-        private System.Windows.Forms.BindingSource shapeBindingSource1;
     }
 }
 
