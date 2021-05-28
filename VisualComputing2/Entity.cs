@@ -8,180 +8,31 @@ using System.Drawing;
 
 namespace VisualComputing2
 {
-    public class Entity
+    public abstract class Entity
     {
-        //Material material;
         public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
-        public Vector2 Acceleration { get; set; }
-        public float rotation;
-        float mass = 1f;
-        float drag = 0f;
-        public bool canMove { get; set; }
-        public bool usesGravity;
-        public bool usesWind;
-        public bool usesDrag;
-        
-        public Shape EShape { get; }
-
-        public float Radius { get; }
-
+        public string Name { get; set; }
         public Color color;
-        public String name;
 
-        public Vector2 Dimension { get; set; }
-        public Vector2[] Points;
-        public Vector2[] ShapeVectors;
-        public Vector2[] Normals;
-
-        //windbox
-        public Vector2 winddirection;
-        public float windspeed;
-
-        public Vector2 startPosition;
-        public Vector2 startVelocity;
-
-
-
-        public enum Shape 
-        {
-            Sphere,
-            Rectangle,
-            Windbox
-        }
-
-        public Entity(Vector2 pos, Vector2 speed, String name, float mass, float radius, bool g, bool wind, bool drag)
+        public Entity(Vector2 pos, string name, Color color)
         {
             Position = pos;
-            Velocity = speed;
-            this.name = name;
-            this.mass = mass;
-            Radius = radius;
-            usesGravity = g;
-            usesWind = wind;
-            usesDrag = drag;
-            this.canMove = true;
+            Name = name;
+            this.color = color;
         }
 
-        //Constructor for Sphere
-        public Entity(Vector2 pos, bool canMove, float radius) 
+        public Entity(Vector2 pos, string name)
         {
-          
             Position = pos;
-            this.canMove = canMove;
-            EShape = Shape.Sphere;
-            Radius = radius;
+            Name = name;
+            color = Color.Black;
         }
-
-        //Constructor for Rectangle
-        public Entity(Vector2 pos, float width, float height, float rotation)
-        {
-            Position = pos;
-            this.canMove = false;
-            EShape = Shape.Rectangle;
-            Dimension = new Vector2(width, height);
-            this.rotation = rotation;
-            Points = GetRectPoints();
-            Normals = GetNormals(Points);
-            ShapeVectors = getShapeVectors(Points);
-        }
-
-        //Constructor for Windbox
-        public Entity(Vector2 pos, float width, float height, float windspeed, Vector2 winddirection)
-        {
-            Position = pos;
-            this.canMove = false;
-            EShape = Shape.Windbox;
-            Dimension = new Vector2(width, height);
-            this.winddirection = Vector2.Normalize(winddirection);
-            this.windspeed = windspeed;
+       
         
-        }
-            
 
-        public float Diameter() 
-        {
-            return Radius * 2;
-        }
+        public abstract void Update(float timerInterval);
 
-        public Vector2[] GetRectPoints()
-        {
-            Vector2[] arr = new Vector2[4];
-            arr[0] = Position - 0.5f * Dimension;
-            arr[1] = Position + 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
-            arr[2] = Position + 0.5f * Dimension;
-            arr[3] = Position - 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
-
-            double angle = rotation * Math.PI / 180;
-            for (int i = 0; i < arr.Length; i++) //Rotation der Punkte
-            {
-                arr[i].Y = (float)(arr[i].Y * Math.Cos(angle) - arr[i].X * Math.Sin(angle));
-                arr[i].X = (float)(arr[i].Y * Math.Sin(angle) + arr[i].X * Math.Cos(angle));
-            }
-            return arr;
-        }
-
-        public Vector2[] GetNormals(Vector2[] points)
-        {
-            Vector2[] normals = new Vector2[points.Length];
-            for (int i = 0; i < points.Length; i++)
-            {
-                if(i == points.Length - 1)
-                {
-                    normals[i] = new Vector2(-(points[0].Y - points[i].Y), points[0].X - points[i].X);
-                }
-                else
-                {
-                    normals[i] = new Vector2(-(points[i + 1].Y - points[i].Y), points[i + 1].X - points[i].X);
-                }
-                normals[i] = Vector2.Normalize(normals[i]);
-            }
-            return normals;
-        }
-
-        public Vector2[] getShapeVectors(Vector2[] points)
-        {
-            Vector2[] shapeVectors = new Vector2[points.Length]; // Vektoren der Form bestimmen
-            for (int i = 0; i < points.Length; i++)
-            {
-                if (i == points.Length-1)
-                {
-                    shapeVectors[i] = points[0] - points[i];
-                }
-                else
-                {
-                    shapeVectors[i] = points[i + 1] - points[i];
-                    
-                }
-            }
-            return shapeVectors;
-        }
-
-        public void Update(float timerInterval) 
-        {
-            //Velocity Verlet Calculation
-            timerInterval = 0.1f;
-            if (!canMove) return;
-            Vector2 newPosition = Position + Velocity * timerInterval + Acceleration * (timerInterval * timerInterval * 0.5f);
-            Vector2 newAcceleration = ApplyForces();
-            Vector2 newVelocity = Velocity + (Acceleration + newAcceleration) * (timerInterval * 0.5f);
-
-            Position = newPosition;
-            Velocity = newVelocity;
-            Acceleration = newAcceleration;
-        }
-
-        private Vector2 ApplyForces()
-        {
-            Vector2 gravity = Vector2.Zero;
-            if (usesGravity)
-            {
-                gravity = new Vector2(0, Form1.gravity);
-            }
-            Vector2 drag_force = 0.5f * drag * (Velocity * Vector2.Abs(Velocity));
-            Vector2 drag_acc = drag_force / mass;
-            return gravity - drag_acc;
-        }
+        
 
     
 
