@@ -50,7 +50,7 @@ namespace VisualComputing2
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), "rec3", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height -20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), "rec5", 20f, pictureBox1.Height, 0f));
-            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 300f, 20f, 25f));
+            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 500f, 20f, 25f));
             entities.Add(new Rectangle(new Vector2(0, 0), "rec7", 500f, 40f, 45f));
 
 
@@ -60,7 +60,7 @@ namespace VisualComputing2
 
             Sphere s1 = (Sphere) entities[0];
             
-            s1.Velocity = new Vector2(5, -40);
+            s1.Velocity = new Vector2(5, 0);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -214,6 +214,7 @@ namespace VisualComputing2
                     {
                         Sphere sphere = (Sphere)outerLoop;
                         sphere.Update(timerInterval);
+                        
                         foreach (Entity innerLoop in entities)
                         {
 
@@ -237,14 +238,33 @@ namespace VisualComputing2
                             {
                                 Rectangle rectangle = (Rectangle)innerLoop;
                                 Sphere nextStepSphere = (Sphere)sphere.Clone(); // Die kugel wird dupliziert und geupdated, um zu gucken,
-                                nextStepSphere.Update(timerInterval);           // ob im nächsten Simulationsschritt eine Kollision stattfinden würde.
+                                nextStepSphere.Update(timerInterval);           // ob im nächsten Simulationsschritt eine Kollision stattfinden 
                                 Vector2 normal = checkRectCollision(nextStepSphere, rectangle);
-                                Console.WriteLine(normal.ToString());
-                                if (normal != Vector2.Zero)
+                                Console.WriteLine(sphere.Velocity.ToString());
+                                if(sphere.IsRolling && normal == Vector2.Zero && sphere.PlattformRollingOn == rectangle)
                                 {
-                                   
+                                    sphere.IsRolling = false;
+                                    sphere.PlattformRollingOn = null;
+
+                                }
+                                if (normal != Vector2.Zero && sphere.PlattformRollingOn != rectangle)
+                                {
+                                    
+                                    if(sphere.Velocity.Length() <= 20f) 
+                                    {
+                                        if(Math.Abs(normal.X) > 0)
+                                        {
+                                            sphere.IsRolling = true;
+                                            sphere.RollingNormal = normal;
+                                            sphere.PlattformRollingOn = rectangle;
+                                            
+                                            continue;
+                                        }
+                                    }
+
                                     sphere.Velocity = Vector2.Reflect(sphere.Velocity, normal) * 0.7f;
                                 }
+
 
                             }
                             
@@ -305,6 +325,18 @@ namespace VisualComputing2
             return Vector2.Distance(nearestPoint, circle.Position) <= circle.Radius+0.1f;
 
 
+        }
+
+        private bool LineLineCol(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
+        {
+            float uA = ((D.X-C.X)*(A.Y-C.Y) - (D.Y-C.Y)*(A.X-C.X))/((D.Y-C.Y)*(B.X-A.X)-(D.X-C.X)*(B.Y-A.Y));
+            float uB = ((B.X-A.X)*(A.Y-C.Y) - (B.Y-A.Y)*(A.X-C.X))/((D.Y-C.Y)*(B.X-A.X)-(D.X-C.X)*(B.Y-A.Y));
+
+            if(uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) 
+            {
+                return true;
+            }
+            return false;
         }
 
 

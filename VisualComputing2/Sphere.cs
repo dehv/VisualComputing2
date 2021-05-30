@@ -63,12 +63,23 @@ namespace VisualComputing2
 
 
         public Vector2 windAcceleration = Vector2.Zero;
+        public bool IsRolling {get; set;}
+        public Vector2 RollingNormal {get;set;}
+        public Rectangle PlattformRollingOn;
         private Vector2 ApplyForces()
         {
             Vector2 gravity = Vector2.Zero;
             if (UsesGravity)
             {
                 gravity = new Vector2(0, Form1.gravity);
+            }
+            if(IsRolling)
+            {
+                float winkel = Vector2.Dot(gravity, -RollingNormal) / gravity.Length() * (RollingNormal.Length());
+                Vector2 V_GH = new Vector2((float)Math.Cos(winkel),(float)Math.Cos(90-winkel));
+                V_GH = -Vector2.Normalize(V_GH);
+                float F_GH = gravity.Length()*(float)Math.Sin(winkel);
+                gravity = F_GH * -V_GH;
             }
             Vector2 drag_force = 0.5f * Drag * (Velocity * Vector2.Abs(Velocity));
             Vector2 drag_acc = drag_force / Mass;
