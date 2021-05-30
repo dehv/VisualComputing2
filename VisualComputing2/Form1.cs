@@ -463,17 +463,53 @@ namespace VisualComputing2
 
         private void addObject_Click(object sender, EventArgs e)
         {
-            Sphere toAdd = new Sphere(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
-                new Vector2(float.Parse(startVelX.Text),
-                float.Parse(startVelY.Text)),
-                textboxObjectName.Text,
-                float.Parse(massBox.Text),
-                float.Parse(radiusBox.Text),
-                checkboxGravitation.Checked,
-                checkboxWind.Checked,
-                checkboxFriction.Checked);
+            if (DropDownList.SelectedItem.ToString()=="Kugel")
+            {
+                Sphere toAdd = new Sphere(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                               new Vector2(float.Parse(startVelX.Text),
+                               float.Parse(startVelY.Text)),
+                               textboxObjectName.Text,
+                               float.Parse(massBox.Text),
+                               float.Parse(radiusBox.Text),
+                               checkboxGravitation.Checked,
+                               checkboxWind.Checked,
+                               checkboxFriction.Checked);
 
-            entities.Add(toAdd);
+                entities.Add(toAdd);
+            }
+
+            if (DropDownList.SelectedItem.ToString() == "Rechteck")
+            {
+                Console.WriteLine("Rechteck erzeugt");
+
+                /*Rectangle toAdd = new Rectangle(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                               new Vector2(float.Parse(startVelX.Text),
+                               float.Parse(startVelY.Text)),
+                               textboxObjectName.Text,
+                               checkboxGravitation.Checked,
+                               checkboxWind.Checked,
+                               checkboxFriction.Checked);
+
+            }
+
+            if (DropDownList.SelectedItem.ToString() == "Windbox")
+            {
+                Console.WriteLine("Windbox erzeugt");
+
+               /* Windbox toAdd = new Windbox(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                               new Vector2(float.Parse(startVelX.Text),
+                               float.Parse(startVelY.Text)),
+                               textboxObjectName.Text,
+                               checkboxGravitation.Checked,
+                               checkboxWind.Checked,
+                               checkboxFriction.Checked);
+               */
+            }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
