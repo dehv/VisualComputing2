@@ -50,11 +50,12 @@ namespace VisualComputing2
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), "rec3", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height -20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), "rec5", 20f, pictureBox1.Height, 0f));
-            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 300, 20f, 0f));
+            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 300f, 20f, 25f));
+            entities.Add(new Rectangle(new Vector2(0, 0), "rec7", 500f, 40f, 45f));
 
 
             //windbox
-            entities.Add(new Windbox(new Vector2(200, 400),"Wind1", 400f, 100f, 50f, new Vector2(4, 0)));
+            //entities.Add(new Windbox(new Vector2(200, 400),"Wind1", 400f, 100f, 50f, new Vector2(4, 0)));
 
 
             Sphere s1 = (Sphere) entities[0];
@@ -231,13 +232,81 @@ namespace VisualComputing2
                                     Console.WriteLine("Inside!" + outerLoop.Position.ToString());
                                 }
                             }
-                            //wenn dasselbe Objekt ausgewählt wurde, dann ignorier das
+
+                            if(innerLoop.GetType() == typeof(Rectangle))
+                            {
+                                Rectangle rectangle = (Rectangle)innerLoop;
+                                Sphere nextStepSphere = (Sphere)sphere.Clone(); // Die kugel wird dupliziert und geupdated, um zu gucken,
+                                nextStepSphere.Update(timerInterval);           // ob im nächsten Simulationsschritt eine Kollision stattfinden würde.
+                                Vector2 normal = checkRectCollision(nextStepSphere, rectangle);
+                                Console.WriteLine(normal.ToString());
+                                if (normal != Vector2.Zero)
+                                {
+                                   
+                                    sphere.Velocity = Vector2.Reflect(sphere.Velocity, normal) * 0.7f;
+                                }
+
+                            }
+                            
                             
                         }
+                    }
+                    if (outerLoop.GetType() == typeof(Rectangle))
+                    {
+                        //outerLoop.Update(timerInterval);
                     }
                 }
             }
         }
+
+        private Vector2 checkRectCollision(Sphere sphere, Rectangle rectangle)
+        {
+            int next = 0;
+            for (int current = 0; current < rectangle.Points.Length; current++)
+            {
+                next = current+1;
+                if (next == rectangle.Points.Length) next = 0;
+
+                if (LineCircleCol(rectangle.Points[current], rectangle.Points[next], sphere)) return rectangle.Normals[current];
+            }
+            return Vector2.Zero;
+        }
+
+        private bool LinePointCol(Vector2 point, Vector2 A, Vector2 B)
+        {
+            float d1 = Vector2.Distance(point, A);
+            float d2 = Vector2.Distance(point, B);
+
+            float lineLength = Vector2.Distance(A, B);
+
+            if (d1 + d2 >= lineLength - 0.1f && d1 + d2 <= lineLength + 0.1f) return true;
+            return false;
+        }
+
+        private bool PointCircleCol(Vector2 point, Sphere circle)
+        {
+            float d = Vector2.Distance(point, circle.Position);
+
+            if (d <= circle.Radius) return true;
+            return false;
+        }
+
+        private bool LineCircleCol(Vector2 A, Vector2 B, Sphere circle)
+        {
+            //Direkt true zurückgeben, wenn eines der Enden in der Kugel ist
+            if (PointCircleCol(A, circle) || PointCircleCol(B, circle)) return true;
+
+            float len = Vector2.Distance(A, B);
+            float dot = (((circle.Position.X - A.X) * (B.X - A.X)) + ((circle.Position.Y - A.Y) * (B.Y - A.Y))) / (float) Math.Pow(len, 2);
+            Vector2 nearestPoint = new Vector2(A.X + (dot * (B.X - A.X)), A.Y + (dot * (B.Y - A.Y)));
+
+            if (!LinePointCol(nearestPoint, A, B)) return false;
+
+            return Vector2.Distance(nearestPoint, circle.Position) <= circle.Radius+0.1f;
+
+
+        }
+
 
 //        private bool checkCollision(Entity kreis, Entity rechteck)
 //        {

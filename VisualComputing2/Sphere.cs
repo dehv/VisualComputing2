@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VisualComputing2
 {
-    class Sphere : Entity
+    class Sphere : Entity , ICloneable
     {
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }
@@ -73,6 +73,13 @@ namespace VisualComputing2
             Vector2 drag_force = 0.5f * Drag * (Velocity * Vector2.Abs(Velocity));
             Vector2 drag_acc = drag_force / Mass;
             return gravity - drag_acc + windAcceleration;
+        }
+
+        public object Clone()
+        {
+            Sphere returnS = new Sphere(new Vector2(Position.X, Position.Y), new Vector2(Velocity.X, Velocity.Y), (string)Name.Clone(), Mass, Radius, UsesGravity, UsesWind, UsesDrag);
+            returnS.Acceleration = new Vector2(Acceleration.X, Acceleration.Y);
+            return returnS;
         }
     }
 }
