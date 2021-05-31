@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace VisualComputing2
 {
@@ -73,7 +74,7 @@ namespace VisualComputing2
             if(IsRolling)
             {
 
-                float winkel = (float) (PlattformRollingOn.Rotation * Math.PI / 180f);
+                float winkel = (float) (PlattformRollingOn.Rotationangle * Math.PI / 180f);
                 Vector2 V_GH = new Vector2((float)Math.Cos(winkel),(float)Math.Cos(90-winkel));
                 //if (Velocity.X < 0) V_GH = -V_GH;
                 V_GH = Vector2.Reflect(-V_GH, Vector2.UnitX);

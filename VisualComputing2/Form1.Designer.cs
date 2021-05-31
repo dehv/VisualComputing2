@@ -43,11 +43,6 @@ namespace VisualComputing2
             this.addObject = new System.Windows.Forms.Button();
             this.btnStartSimulation = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.sphereName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sphereColor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.positionX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.positionY = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.collision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.controlsGroup = new System.Windows.Forms.GroupBox();
             this.selectObject = new System.Windows.Forms.Label();
             this.massBox = new System.Windows.Forms.TextBox();
@@ -85,6 +80,10 @@ namespace VisualComputing2
             this.recPosY = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.windControls = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.directionX = new System.Windows.Forms.TextBox();
+            this.directionY = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.windSpeed = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -98,11 +97,14 @@ namespace VisualComputing2
             this.windPosX = new System.Windows.Forms.TextBox();
             this.windPosY = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.directionX = new System.Windows.Forms.TextBox();
-            this.directionY = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.sphereBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.entityBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.positionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.velocityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelerationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.massDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.radiusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controlsGroup.SuspendLayout();
             this.impacts.SuspendLayout();
@@ -110,6 +112,7 @@ namespace VisualComputing2
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.recControls.SuspendLayout();
             this.windControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sphereBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -237,13 +240,16 @@ namespace VisualComputing2
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.sphereName,
-            this.sphereColor,
-            this.positionX,
-            this.positionY,
-            this.collision});
+            this.nameDataGridViewTextBoxColumn,
+            this.positionDataGridViewTextBoxColumn,
+            this.velocityDataGridViewTextBoxColumn,
+            this.accelerationDataGridViewTextBoxColumn,
+            this.massDataGridViewTextBoxColumn,
+            this.radiusDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.sphereBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(8, 32);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
@@ -252,42 +258,6 @@ namespace VisualComputing2
             this.dataGridView1.Size = new System.Drawing.Size(1176, 240);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // sphereName
-            // 
-            this.sphereName.Frozen = true;
-            this.sphereName.HeaderText = "Kugelname";
-            this.sphereName.MinimumWidth = 9;
-            this.sphereName.Name = "sphereName";
-            this.sphereName.Width = 175;
-            // 
-            // sphereColor
-            // 
-            this.sphereColor.HeaderText = "Kugelfarbe";
-            this.sphereColor.MinimumWidth = 9;
-            this.sphereColor.Name = "sphereColor";
-            this.sphereColor.Width = 175;
-            // 
-            // positionX
-            // 
-            this.positionX.HeaderText = "X-Wert";
-            this.positionX.MinimumWidth = 9;
-            this.positionX.Name = "positionX";
-            this.positionX.Width = 175;
-            // 
-            // positionY
-            // 
-            this.positionY.HeaderText = "Y-Wert";
-            this.positionY.MinimumWidth = 9;
-            this.positionY.Name = "positionY";
-            this.positionY.Width = 175;
-            // 
-            // collision
-            // 
-            this.collision.HeaderText = "Kollision";
-            this.collision.MinimumWidth = 9;
-            this.collision.Name = "collision";
-            this.collision.Width = 175;
             // 
             // controlsGroup
             // 
@@ -464,7 +434,6 @@ namespace VisualComputing2
             this.DropDownList.BackColor = System.Drawing.SystemColors.Window;
             this.DropDownList.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entityBindingSource, "Position", true));
             this.DropDownList.DropDownHeight = 160;
-            this.DropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DropDownList.DropDownWidth = 240;
             this.DropDownList.FormattingEnabled = true;
             this.DropDownList.IntegralHeight = false;
@@ -476,6 +445,7 @@ namespace VisualComputing2
             this.DropDownList.Name = "DropDownList";
             this.DropDownList.Size = new System.Drawing.Size(320, 21);
             this.DropDownList.TabIndex = 17;
+            this.DropDownList.Text = "Kugel";
             this.DropDownList.SelectedIndexChanged += new System.EventHandler(this.DropDownList_SelectedIndexChanged);
             this.DropDownList.SelectedValueChanged += new System.EventHandler(this.DropDownList_SelectedValueChanged);
             // 
@@ -713,6 +683,44 @@ namespace VisualComputing2
             this.windControls.Text = "Parameter der Windbox";
             this.windControls.Visible = false;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(85, 236);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(15, 15);
+            this.label19.TabIndex = 30;
+            this.label19.Text = "X";
+            // 
+            // directionX
+            // 
+            this.directionX.Location = new System.Drawing.Point(109, 235);
+            this.directionX.Margin = new System.Windows.Forms.Padding(4);
+            this.directionX.Name = "directionX";
+            this.directionX.Size = new System.Drawing.Size(71, 20);
+            this.directionX.TabIndex = 28;
+            // 
+            // directionY
+            // 
+            this.directionY.Location = new System.Drawing.Point(252, 235);
+            this.directionY.Margin = new System.Windows.Forms.Padding(4);
+            this.directionY.Name = "directionY";
+            this.directionY.Size = new System.Drawing.Size(74, 20);
+            this.directionY.TabIndex = 29;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(219, 235);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(14, 15);
+            this.label20.TabIndex = 31;
+            this.label20.Text = "Y";
+            // 
             // windSpeed
             // 
             this.windSpeed.Location = new System.Drawing.Point(132, 305);
@@ -837,47 +845,50 @@ namespace VisualComputing2
             this.label18.TabIndex = 13;
             this.label18.Text = "Y";
             // 
-            // label19
+            // sphereBindingSource
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(85, 236);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(15, 15);
-            this.label19.TabIndex = 30;
-            this.label19.Text = "X";
-            // 
-            // directionX
-            // 
-            this.directionX.Location = new System.Drawing.Point(109, 235);
-            this.directionX.Margin = new System.Windows.Forms.Padding(4);
-            this.directionX.Name = "directionX";
-            this.directionX.Size = new System.Drawing.Size(71, 20);
-            this.directionX.TabIndex = 28;
-            // 
-            // directionY
-            // 
-            this.directionY.Location = new System.Drawing.Point(252, 235);
-            this.directionY.Margin = new System.Windows.Forms.Padding(4);
-            this.directionY.Name = "directionY";
-            this.directionY.Size = new System.Drawing.Size(74, 20);
-            this.directionY.TabIndex = 29;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(219, 235);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(14, 15);
-            this.label20.TabIndex = 31;
-            this.label20.Text = "Y";
+            this.sphereBindingSource.DataSource = typeof(VisualComputing2.Sphere);
             // 
             // entityBindingSource
             // 
             this.entityBindingSource.DataSource = typeof(VisualComputing2.Entity);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // positionDataGridViewTextBoxColumn
+            // 
+            this.positionDataGridViewTextBoxColumn.DataPropertyName = "Position";
+            this.positionDataGridViewTextBoxColumn.HeaderText = "Position";
+            this.positionDataGridViewTextBoxColumn.Name = "positionDataGridViewTextBoxColumn";
+            // 
+            // velocityDataGridViewTextBoxColumn
+            // 
+            this.velocityDataGridViewTextBoxColumn.DataPropertyName = "Velocity";
+            this.velocityDataGridViewTextBoxColumn.HeaderText = "Velocity";
+            this.velocityDataGridViewTextBoxColumn.Name = "velocityDataGridViewTextBoxColumn";
+            // 
+            // accelerationDataGridViewTextBoxColumn
+            // 
+            this.accelerationDataGridViewTextBoxColumn.DataPropertyName = "Acceleration";
+            this.accelerationDataGridViewTextBoxColumn.HeaderText = "Acceleration";
+            this.accelerationDataGridViewTextBoxColumn.Name = "accelerationDataGridViewTextBoxColumn";
+            // 
+            // massDataGridViewTextBoxColumn
+            // 
+            this.massDataGridViewTextBoxColumn.DataPropertyName = "Mass";
+            this.massDataGridViewTextBoxColumn.HeaderText = "Mass";
+            this.massDataGridViewTextBoxColumn.Name = "massDataGridViewTextBoxColumn";
+            // 
+            // radiusDataGridViewTextBoxColumn
+            // 
+            this.radiusDataGridViewTextBoxColumn.DataPropertyName = "Radius";
+            this.radiusDataGridViewTextBoxColumn.HeaderText = "Radius";
+            this.radiusDataGridViewTextBoxColumn.Name = "radiusDataGridViewTextBoxColumn";
+            this.radiusDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Form1
             // 
@@ -906,6 +917,7 @@ namespace VisualComputing2
             this.recControls.PerformLayout();
             this.windControls.ResumeLayout(false);
             this.windControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sphereBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -927,12 +939,7 @@ namespace VisualComputing2
         private System.Windows.Forms.Button btnStartSimulation;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox controlsGroup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sphereName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sphereColor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn positionX;
-        private System.Windows.Forms.DataGridViewTextBoxColumn positionY;
         private System.Windows.Forms.GroupBox DataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn collision;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox DropDownList;
@@ -986,6 +993,13 @@ namespace VisualComputing2
         private System.Windows.Forms.TextBox directionX;
         private System.Windows.Forms.TextBox directionY;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.BindingSource sphereBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn positionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn velocityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelerationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn massDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn radiusDataGridViewTextBoxColumn;
     }
 }
 

@@ -57,6 +57,7 @@ namespace VisualComputing2
             timerInterval = timer1.Interval;
             enableDebug = true; //enableDebugDrawCheck.Checked;
             bufl = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            dataGridView1.DataSource = entities;
         }
 
         // https://gamedev.stackexchange.com/questions/67651/what-is-the-standard-c-windows-forms-game-loop

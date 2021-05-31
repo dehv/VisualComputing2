@@ -96,7 +96,7 @@ namespace VisualComputing2
                 Points = GetRectPoints();
                 Normals = GetNormals(Points);
                 ShapeVectors = getShapeVectors(Points);
-         
+            }
         }
     }
 }
