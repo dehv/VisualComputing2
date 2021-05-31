@@ -1,27 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VisualComputing2
 {
     class Rectangle : Entity
     {
         public bool Rotating { get; set; }
-        public float Rotation { get; set; }
+        public float Rotationangle { get; set; }
         public float RotationSpeed { get; set; }
         public Vector2 Dimension { get; set; }
         public Vector2[] Points;
         public Vector2[] ShapeVectors;
         public Vector2[] Normals;
 
-        public Rectangle(Vector2 pos, string name, float width, float height, float rotation)
-            : base (pos, name)
+        public Rectangle(Vector2 pos, string name, float width, float height, float rotationangle, bool rotating, float rotationspeed)
+            : base(pos, name)
         {
             Dimension = new Vector2(width, height);
-            Rotation = rotation;
+            Rotationangle = rotationangle;
+            Points = GetRectPoints();
+            Normals = GetNormals(Points);
+            ShapeVectors = getShapeVectors(Points);
+        }
+
+        public Rectangle(Vector2 pos, string name, float width, float height, float rotation)
+          : base(pos, name)
+        {
+            Dimension = new Vector2(width, height);
+            Rotationangle = rotation;
             Points = GetRectPoints();
             Normals = GetNormals(Points);
             ShapeVectors = getShapeVectors(Points);
@@ -35,7 +41,7 @@ namespace VisualComputing2
             arr[2] = 0.5f * Dimension;
             arr[3] = -0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
 
-            double angle = Rotation * Math.PI / 180f;
+            double angle = Rotationangle * Math.PI / 180;
             for (int i = 0; i < arr.Length; i++) //Rotation der Punkte
             {
                 float x = (float)((arr[i].X * Math.Cos(angle)) - (arr[i].Y * Math.Sin(angle)))+Position.X;
@@ -84,8 +90,9 @@ namespace VisualComputing2
 
         public override void Update(float timerInterval)
         {
-            RotationSpeed = 30;
-                Rotation += RotationSpeed * timerInterval / 1000;
+            if (Rotating)
+            {
+                Rotationangle += RotationSpeed * timerInterval / 1000;
                 Points = GetRectPoints();
                 Normals = GetNormals(Points);
                 ShapeVectors = getShapeVectors(Points);

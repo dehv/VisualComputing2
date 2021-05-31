@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Timers;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 
 
@@ -41,12 +35,10 @@ namespace VisualComputing2
             Application.Idle += HandleApplicationIdle;
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
-
-            
             entities.Add(new Sphere(new Vector2(200, 100), 10f, "Test Kreis"));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, 0), "rec2", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), "rec3", pictureBox1.Width, 20f, 0f));
-            entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height -20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
+            entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height - 20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), "rec5", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(300, 200), "rec6", 1000f, 20f, 10f));
             entities.Add(new Rectangle(new Vector2(800, 500), "rec6", 1000f, 20f, -10f));
@@ -91,7 +83,7 @@ namespace VisualComputing2
         [DllImport("user32.dll")]
         public static extern int PeekMessage(out NativeMessage message, IntPtr window, uint filterMin, uint filterMax, uint remove);
 
-        bool IsApplicationIdle () 
+        bool IsApplicationIdle()
         {
             NativeMessage result;
             return PeekMessage(out result, IntPtr.Zero, (uint)0, (uint)0, (uint)0) == 0;
@@ -116,20 +108,20 @@ namespace VisualComputing2
 
         void Render()
         {
-            
+
             using (g = Graphics.FromImage(bufl))
             {
                 //Clear Screen
                 g.FillRectangle(Brushes.White, new System.Drawing.Rectangle(0, 0, this.Width, this.Height));
 
-                
+
                 //Draw every Entity in the List
                 foreach (Entity entity in entities)
                 {
                     //Draw Spheres
                     if (entity.GetType() == typeof(Sphere))
                     {
-                        Sphere s = (Sphere) entity; // Cast Entity To Sphere to access Fields
+                        Sphere s = (Sphere)entity; // Cast Entity To Sphere to access Fields
                         g.FillEllipse(Brushes.Black, s.Position.X - s.Radius, s.Position.Y - s.Radius, s.Diameter(), s.Diameter());
                         if (enableDebug)
                         {
@@ -138,9 +130,9 @@ namespace VisualComputing2
                         }
                     }
 
-                    if(entity.GetType() == typeof(Rectangle))
+                    if (entity.GetType() == typeof(Rectangle))
                     {
-                        Rectangle r = (Rectangle) entity;
+                        Rectangle r = (Rectangle)entity;
                         Vector2[] pointsVec = r.Points;
                         PointF[] points = new PointF[pointsVec.Length];
                         for (int i = 0; i < pointsVec.Length; i++)
@@ -153,41 +145,41 @@ namespace VisualComputing2
                             for (int i = 0; i < pointsVec.Length; i++)
                             {
                                 g.DrawString(i.ToString(), DefaultFont, Brushes.Maroon, points[i]);
-                                if(i == pointsVec.Length - 1)
+                                if (i == pointsVec.Length - 1)
                                 {
                                     Vector2 middle = pointsVec[0] - pointsVec[i];
-                                    g.DrawLine(Pens.Red, 
-                                        pointsVec[i].X+middle.X * 0.5f,
-                                        pointsVec[i].Y+middle.Y * 0.5f,
-                                        (pointsVec[i].X + middle.X * 0.5f + r.Normals[i].X*10),
-                                        (pointsVec[i].Y + middle.Y * 0.5f + r.Normals[i].Y*10));
+                                    g.DrawLine(Pens.Red,
+                                        pointsVec[i].X + middle.X * 0.5f,
+                                        pointsVec[i].Y + middle.Y * 0.5f,
+                                        (pointsVec[i].X + middle.X * 0.5f + r.Normals[i].X * 10),
+                                        (pointsVec[i].Y + middle.Y * 0.5f + r.Normals[i].Y * 10));
                                 }
                                 else
                                 {
-                                    Vector2 middle = pointsVec[i+1] - pointsVec[i];
+                                    Vector2 middle = pointsVec[i + 1] - pointsVec[i];
                                     g.DrawLine(Pens.Red,
-                                        pointsVec[i].X + middle.X *0.5f,
+                                        pointsVec[i].X + middle.X * 0.5f,
                                         pointsVec[i].Y + middle.Y * 0.5f,
-                                        (pointsVec[i].X + middle.X * 0.5f + r.Normals[i].X*10),
-                                        (pointsVec[i].Y + middle.Y * 0.5f + r.Normals[i].Y*10));
+                                        (pointsVec[i].X + middle.X * 0.5f + r.Normals[i].X * 10),
+                                        (pointsVec[i].Y + middle.Y * 0.5f + r.Normals[i].Y * 10));
                                 }
-                                
+
                             }
                         }
                     }
 
-                    if(entity.GetType() == typeof(Windbox))
+                    if (entity.GetType() == typeof(Windbox))
                     {
                         Windbox w = (Windbox)entity;
                         g.DrawRectangle(Pens.Aqua, w.Position.X - 0.5f * w.Dimension.X, w.Position.Y - 0.5f * w.Dimension.Y, w.Dimension.X, w.Dimension.Y);
                     }
-                    
-                    
+
+
                 }
 
                 if (selectedEntity != null && selectedEntity.GetType() == typeof(Sphere))
                 {
-                    Sphere s = (Sphere) selectedEntity;
+                    Sphere s = (Sphere)selectedEntity;
                     g.DrawEllipse(Pens.Turquoise, s.Position.X - s.Radius, s.Position.Y - s.Radius, s.Diameter(), s.Diameter());
                 }
                 //Draw finished Image
@@ -195,14 +187,14 @@ namespace VisualComputing2
             }
 
             //g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0,0, Size.Width, Size.Height));
-            
-            
+
+
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+
             if (runSimulation)
             {
                 //für jedes Objekt in der entity liste soll update abgeführt werden
@@ -231,7 +223,6 @@ namespace VisualComputing2
                                     Console.WriteLine("Inside!" + outerLoop.Position.ToString());
                                 }
                             }
-
                             if(innerLoop.GetType() == typeof(Rectangle))
                             {
                                 Rectangle rectangle = (Rectangle)innerLoop;
@@ -266,8 +257,6 @@ namespace VisualComputing2
 
 
                             }
-                            
-                            
                         }
                     }
                     if (outerLoop.GetType() == typeof(Rectangle))
@@ -408,7 +397,7 @@ namespace VisualComputing2
             //enableDebug = enableDebugDrawCheck.Checked;
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs me) 
+        private void Form1_MouseClick(object sender, MouseEventArgs me)
         {
         }
 
@@ -493,13 +482,13 @@ namespace VisualComputing2
                 {
                     foreach (Entity entity in entities)
                     {
-                        if(entity.GetType() == typeof(Sphere))
+                        if (entity.GetType() == typeof(Sphere))
                         {
                             Sphere s = (Sphere)entity;
                             s.StartVelocity = s.Velocity;
                             s.StartPosition = s.Position;
                         }
-                        
+
                     }
                     isFirstStart = false;
                 }
@@ -540,7 +529,7 @@ namespace VisualComputing2
         }
 
         private void addSphere_Click(object sender, EventArgs e)
-        { 
+        {
         }
 
         private void label1_Click_2(object sender, EventArgs e)
@@ -575,17 +564,75 @@ namespace VisualComputing2
 
         private void addObject_Click(object sender, EventArgs e)
         {
-            Sphere toAdd = new Sphere(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
-                new Vector2(float.Parse(startVelX.Text),
-                float.Parse(startVelY.Text)),
-                textboxObjectName.Text,
-                float.Parse(massBox.Text),
-                float.Parse(radiusBox.Text),
-                checkboxGravitation.Checked,
-                checkboxWind.Checked,
-                checkboxFriction.Checked);
+            if (DropDownList.SelectedItem.ToString() == "Kugel")
+            {
+                Sphere toAdd = new Sphere(new Vector2(float.Parse(startPosX.Text), float.Parse(startPosY.Text)),
+                               new Vector2(float.Parse(startVelX.Text),
+                               float.Parse(startVelY.Text)),
+                               textboxObjectName.Text,
+                               float.Parse(massBox.Text),
+                               float.Parse(radiusBox.Text),
+                               checkboxGravitation.Checked,
+                               checkboxWind.Checked,
+                               checkboxFriction.Checked);
 
-            entities.Add(toAdd);
+                entities.Add(toAdd);
+            }
+
+            if (DropDownList.SelectedItem.ToString() == "Rechteck")
+            {
+                Console.WriteLine("Rechteck erzeugt");
+
+                Rectangle toAdd = new Rectangle(new Vector2(float.Parse(recPosX.Text), float.Parse(recPosY.Text)),
+                                  textboxObjectName.Text,
+                                  float.Parse(recWidth.Text),
+                                  float.Parse(recHeight.Text),
+                                  float.Parse(recAngle.Text),
+                                  recRotation.Checked,
+                                  float.Parse(rotationSpeed.Text));
+
+
+                entities.Add(toAdd);
+
+            }
+
+
+            if (DropDownList.SelectedItem.ToString() == "Windbox")
+            {
+                Console.WriteLine("Windbox erzeugt");
+
+                Windbox toAdd = new Windbox(new Vector2(float.Parse(windPosX.Text), float.Parse(windPosY.Text)),
+                               textboxObjectName.Text, 
+                               float.Parse(windboxWidth.Text),
+                               float.Parse(windboxHeight.Text),
+                               float.Parse(windSpeed.Text),
+                               new Vector2(float.Parse(directionX.Text), float.Parse(directionY.Text)));
+
+                entities.Add(toAdd);
+            }
         }
+
+        private void DropDownList_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
+            switch (DropDownList.SelectedItem.ToString())
+            {
+                case "Kugel":
+                    recControls.Visible = false;
+                    windControls.Visible = false;
+                    break;
+                case "Rechteck":
+                    recControls.Visible = true;
+                    windControls.Visible = false;
+                    break;
+                case "Windbox":
+                    recControls.Visible = false;
+                    windControls.Visible = true;
+                    break;
+            }
+
+        }
+
+        
     }
-}
+ }

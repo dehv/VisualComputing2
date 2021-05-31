@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace VisualComputing2
 {
@@ -12,7 +7,7 @@ namespace VisualComputing2
         public Vector2 Dimension { get; set; }
         public Vector2 Winddirection { get; set; }
         public float Windspeed { get; set; }
-        public Windbox(Vector2 pos,string name, float width, float height, float windspeed, Vector2 winddirection)
+        public Windbox(Vector2 pos, string name, float width, float height, float windspeed, Vector2 winddirection)
             : base(pos, name)
         {
             Position = pos;

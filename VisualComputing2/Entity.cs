@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Numerics;
-using System.Drawing;
 
 namespace VisualComputing2
 {
@@ -27,14 +22,14 @@ namespace VisualComputing2
             Name = name;
             color = Color.Black;
         }
-       
-        
+
+
 
         public abstract void Update(float timerInterval);
 
-        
 
-    
+
+
 
     }
 }
