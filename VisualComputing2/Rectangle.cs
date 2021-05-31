@@ -36,16 +36,18 @@ namespace VisualComputing2
         public Vector2[] GetRectPoints()
         {
             Vector2[] arr = new Vector2[4];
-            arr[0] = Position - 0.5f * Dimension;
-            arr[1] = Position + 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
-            arr[2] = Position + 0.5f * Dimension;
-            arr[3] = Position - 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
+            arr[0] = -0.5f * Dimension;
+            arr[1] = 0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
+            arr[2] = 0.5f * Dimension;
+            arr[3] = -0.5f * Vector2.Reflect(Dimension, Vector2.UnitX);
 
             double angle = Rotationangle * Math.PI / 180;
             for (int i = 0; i < arr.Length; i++) //Rotation der Punkte
             {
-                arr[i].Y = (float)(arr[i].Y * Math.Cos(angle) - arr[i].X * Math.Sin(angle));
-                arr[i].X = (float)(arr[i].Y * Math.Sin(angle) + arr[i].X * Math.Cos(angle));
+                float x = (float)((arr[i].X * Math.Cos(angle)) - (arr[i].Y * Math.Sin(angle)))+Position.X;
+                float y = (float)((arr[i].X * Math.Sin(angle)) + (arr[i].Y * Math.Cos(angle)))+Position.Y;
+                arr[i].X = x;
+                arr[i].Y = y;
             }
             return arr;
         }
@@ -94,7 +96,7 @@ namespace VisualComputing2
                 Points = GetRectPoints();
                 Normals = GetNormals(Points);
                 ShapeVectors = getShapeVectors(Points);
-            }
+         
         }
     }
 }

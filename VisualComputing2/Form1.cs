@@ -35,25 +35,22 @@ namespace VisualComputing2
             Application.Idle += HandleApplicationIdle;
             brush = new SolidBrush(Color.Black);
             pen = new Pen(brush);
-
-
-            entities.Add(new Sphere(new Vector2(200, 400), 10f, "Test Kreis"));
-
-            entities.Add(new Rectangle(new Vector2(200, 200), "rec1", 50f, 30f, 20f));
+            entities.Add(new Sphere(new Vector2(200, 100), 10f, "Test Kreis"));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, 0), "rec2", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), "rec3", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height - 20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), "rec5", 20f, pictureBox1.Height, 0f));
-            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 300, 20f, 0f));
+            entities.Add(new Rectangle(new Vector2(300, 200), "rec6", 1000f, 20f, 10f));
+            entities.Add(new Rectangle(new Vector2(800, 500), "rec6", 1000f, 20f, -10f));
 
 
             //windbox
-            entities.Add(new Windbox(new Vector2(200, 400), "Wind1", 400f, 100f, 50f, new Vector2(4, 0)));
+            //entities.Add(new Windbox(new Vector2(200, 400),"Wind1", 400f, 100f, 50f, new Vector2(4, 0)));
 
 
-            Sphere s1 = (Sphere)entities[0];
-
-            s1.Velocity = new Vector2(5, -40);
+            Sphere s1 = (Sphere) entities[0];
+            
+            s1.Velocity = new Vector2(0, 0);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -207,6 +204,7 @@ namespace VisualComputing2
                     {
                         Sphere sphere = (Sphere)outerLoop;
                         sphere.Update(timerInterval);
+                        
                         foreach (Entity innerLoop in entities)
                         {
 
@@ -225,65 +223,174 @@ namespace VisualComputing2
                                     Console.WriteLine("Inside!" + outerLoop.Position.ToString());
                                 }
                             }
-                            //wenn dasselbe Objekt ausgewählt wurde, dann ignorier das
+                            if(innerLoop.GetType() == typeof(Rectangle))
+                            {
+                                Rectangle rectangle = (Rectangle)innerLoop;
+                                Sphere nextStepSphere = (Sphere)sphere.Clone(); // Die kugel wird dupliziert und geupdated, um zu gucken,
+                                nextStepSphere.Update(timerInterval);           // ob im nächsten Simulationsschritt eine Kollision stattfinden 
+                                Vector2 normal = checkRectCollision(nextStepSphere, rectangle);
+                                Console.WriteLine(sphere.Velocity.ToString());
+                                if(sphere.IsRolling && sphere.PlattformRollingOn == rectangle && !CheckLineCol(nextStepSphere, rectangle))
+                                {
+                                    sphere.IsRolling = false;
+                                    sphere.PlattformRollingOn = null;
+                                    sphere.JustStartedRolling = false;
 
+                                }
+                                if (normal != Vector2.Zero && sphere.PlattformRollingOn != rectangle)
+                                {
+                                    
+                                    if(sphere.Velocity.Length() <= 15f) 
+                                    {
+                                        if(Math.Abs(normal.X) > 0)
+                                        {
+                                            sphere.IsRolling = true;
+                                            sphere.RollingNormal = normal;
+                                            sphere.PlattformRollingOn = rectangle;
+                                            
+                                            continue;
+                                        }
+                                    }
+
+                                    sphere.Velocity = Vector2.Reflect(sphere.Velocity, normal) * 0.5f;
+                                }
+
+
+                            }
                         }
+                    }
+                    if (outerLoop.GetType() == typeof(Rectangle))
+                    {
+                        //outerLoop.Update(timerInterval);
                     }
                 }
             }
         }
 
-        //        private bool checkCollision(Entity kreis, Entity rechteck)
-        //        {
+        private bool CheckLineCol(Sphere sphere, Rectangle rectangle)
+        {
+            int next = 0;
+            for (int current = 0; current < rectangle.Points.Length; current++)
+            {
+                next = current + 1;
+                if (next == rectangle.Points.Length) next = 0;
+
+                if (LineLineCol(rectangle.Points[current], rectangle.Points[next], sphere.Position, sphere.Position+new Vector2(0,sphere.Radius+2f))) return true;
+            }
+            return false;
+        }
+        private Vector2 checkRectCollision(Sphere sphere, Rectangle rectangle)
+        {
+            int next = 0;
+            for (int current = 0; current < rectangle.Points.Length; current++)
+            {
+                next = current+1;
+                if (next == rectangle.Points.Length) next = 0;
+
+                if (LineCircleCol(rectangle.Points[current], rectangle.Points[next], sphere)) return rectangle.Normals[current];
+            }
+            return Vector2.Zero;
+        }
+
+        private bool LinePointCol(Vector2 point, Vector2 A, Vector2 B)
+        {
+            float d1 = Vector2.Distance(point, A);
+            float d2 = Vector2.Distance(point, B);
+
+            float lineLength = Vector2.Distance(A, B);
+
+            if (d1 + d2 >= lineLength - 0.1f && d1 + d2 <= lineLength + 0.1f) return true;
+            return false;
+        }
+
+        private bool PointCircleCol(Vector2 point, Sphere circle)
+        {
+            float d = Vector2.Distance(point, circle.Position);
+
+            if (d <= circle.Radius) return true;
+            return false;
+        }
+
+        private bool LineCircleCol(Vector2 A, Vector2 B, Sphere circle)
+        {
+            //Direkt true zurückgeben, wenn eines der Enden in der Kugel ist
+            if (PointCircleCol(A, circle) || PointCircleCol(B, circle)) return true;
+
+            float len = Vector2.Distance(A, B);
+            float dot = (((circle.Position.X - A.X) * (B.X - A.X)) + ((circle.Position.Y - A.Y) * (B.Y - A.Y))) / (float) Math.Pow(len, 2);
+            Vector2 nearestPoint = new Vector2(A.X + (dot * (B.X - A.X)), A.Y + (dot * (B.Y - A.Y)));
+
+            if (!LinePointCol(nearestPoint, A, B)) return false;
+
+            return Vector2.Distance(nearestPoint, circle.Position) <= circle.Radius;
 
 
-        //                if (rechteck.EShape == Entity.Shape.Rectangle) //Check for rectangles
-        //                {
-        //                    if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
-        //                    {
+        }
+
+        private bool LineLineCol(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
+        {
+            float uA = ((D.X-C.X)*(A.Y-C.Y) - (D.Y-C.Y)*(A.X-C.X))/((D.Y-C.Y)*(B.X-A.X)-(D.X-C.X)*(B.Y-A.Y));
+            float uB = ((B.X-A.X)*(A.Y-C.Y) - (B.Y-A.Y)*(A.X-C.X))/((D.Y-C.Y)*(B.X-A.X)-(D.X-C.X)*(B.Y-A.Y));
+
+            if(uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) 
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+//        private bool checkCollision(Entity kreis, Entity rechteck)
+//        {
+           
+                
+//                if (rechteck.EShape == Entity.Shape.Rectangle) //Check for rectangles
+//                {
+//                    if(rechteck.rotation % 90 == 0) // Wenn das rechteck axenaligned ist
+//                    {
 
 
 
-        ////                         Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
-        ////                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
-        ////                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
-        ////                         if (abstand.X <= (rechteck.Dimension.X / 2))
-        ////                         {
-        ////                         kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
-        ////                     }
-        ////                         if (abstand.Y <= (rechteck.Dimension.Y / 2))
-        ////                         {
-        ////                         kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
-        ////                         }
-        ////                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
-        ////                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
-        //                    }
-        //                else // Funktioniert noch nicht, dont bother
-        //                {
-        //                    for (int i = 0; i < rechteck.ShapeVectors.Length; i++)
-        //                    {
+////                         Vector2 abstand = Vector2.Abs(kreis.Position - rechteck.Position );
+////                         if (abstand.X > (rechteck.Dimension.X / 2 + kreis.Radius)) return false;
+////                         if (abstand.Y > (rechteck.Dimension.Y / 2 + kreis.Radius)) return false;
+////                         if (abstand.X <= (rechteck.Dimension.X / 2))
+////                         {
+////                         kreis.Velocity = new Vector2(-kreis.Velocity.X * 0.8f, kreis.Velocity.Y );
+////                     }
+////                         if (abstand.Y <= (rechteck.Dimension.Y / 2))
+////                         {
+////                         kreis.Velocity = new Vector2(kreis.Velocity.X, -kreis.Velocity.Y * 0.8f);
+////                         }
+////                         float kAbstand_qd = (abstand.X - rechteck.Dimension.X / 2) * (abstand.X - rechteck.Dimension.X / 2) + (abstand.Y - rechteck.Dimension.Y / 2) * (abstand.Y - rechteck.Dimension.Y / 2);
+////                         return (kAbstand_qd <= kreis.Radius * kreis.Radius);
+//                    }
+//                else // Funktioniert noch nicht, dont bother
+//                {
+//                    for (int i = 0; i < rechteck.ShapeVectors.Length; i++)
+//                    {
 
-        //                        Vector2 distanceToSphere = rechteck.Points[i] - kreis.Position;
-        //                        float shapeVectorLength = rechteck.ShapeVectors[i].Length();
+//                        Vector2 distanceToSphere = rechteck.Points[i] - kreis.Position;
+//                        float shapeVectorLength = rechteck.ShapeVectors[i].Length();
 
-        //                        float dotProduct = Vector2.Dot(distanceToSphere, rechteck.Normals[i]);
+//                        float dotProduct = Vector2.Dot(distanceToSphere, rechteck.Normals[i]);
 
-        //                        Vector2 pointOnLine = rechteck.Normals[i] * dotProduct;
+//                        Vector2 pointOnLine = rechteck.Normals[i] * dotProduct;
+                        
+//                        Vector2 output = pointOnLine + rechteck.ShapeVectors[i];
+//                        if ((kreis.Position - output).Length() <= kreis.Radius)
+//                        {
+//                            Console.WriteLine("Collision!!!");
+//                            kreis.Velocity = Vector2.Reflect(kreis.Velocity, rechteck.Normals[i]);
+//                        }
 
-        //                        Vector2 output = pointOnLine + rechteck.ShapeVectors[i];
-        //                        if ((kreis.Position - output).Length() <= kreis.Radius)
-        //                        {
-        //                            Console.WriteLine("Collision!!!");
-        //                            kreis.Velocity = Vector2.Reflect(kreis.Velocity, rechteck.Normals[i]);
-        //                        }
-
-        //                    }
-        //                }
+//                    }
+//                }
 
 
-        //            }
-        //            return false;
-        //        }
+//            }
+//            return false;
+//        }
 
         private void EnableDebugDraw_CheckedChanged(object sender, EventArgs e)
         {
