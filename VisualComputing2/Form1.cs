@@ -43,15 +43,13 @@ namespace VisualComputing2
             pen = new Pen(brush);
 
             
-            entities.Add(new Sphere(new Vector2(200, 400), 10f, "Test Kreis"));
-            
-            entities.Add(new Rectangle(new Vector2(200, 200), "rec1", 50f, 30f, 20f));
+            entities.Add(new Sphere(new Vector2(200, 100), 10f, "Test Kreis"));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, 0), "rec2", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width / 2, pictureBox1.Height), "rec3", pictureBox1.Width, 20f, 0f));
             entities.Add(new Rectangle(new Vector2(0, (pictureBox1.Height -20) / 2), "rec4", 20f, pictureBox1.Height, 0f));
             entities.Add(new Rectangle(new Vector2(pictureBox1.Width, (pictureBox1.Height - 20) / 2), "rec5", 20f, pictureBox1.Height, 0f));
-            entities.Add(new Rectangle(new Vector2(300, 500), "rec6", 500f, 20f, 25f));
-            entities.Add(new Rectangle(new Vector2(0, 0), "rec7", 500f, 40f, 45f));
+            entities.Add(new Rectangle(new Vector2(300, 200), "rec6", 1000f, 20f, 10f));
+            entities.Add(new Rectangle(new Vector2(800, 500), "rec6", 1000f, 20f, -10f));
 
 
             //windbox
@@ -60,7 +58,7 @@ namespace VisualComputing2
 
             Sphere s1 = (Sphere) entities[0];
             
-            s1.Velocity = new Vector2(5, 0);
+            s1.Velocity = new Vector2(0, 0);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -241,16 +239,17 @@ namespace VisualComputing2
                                 nextStepSphere.Update(timerInterval);           // ob im nächsten Simulationsschritt eine Kollision stattfinden 
                                 Vector2 normal = checkRectCollision(nextStepSphere, rectangle);
                                 Console.WriteLine(sphere.Velocity.ToString());
-                                if(sphere.IsRolling && normal == Vector2.Zero && sphere.PlattformRollingOn == rectangle)
+                                if(sphere.IsRolling && sphere.PlattformRollingOn == rectangle && !CheckLineCol(nextStepSphere, rectangle))
                                 {
                                     sphere.IsRolling = false;
                                     sphere.PlattformRollingOn = null;
+                                    sphere.JustStartedRolling = false;
 
                                 }
                                 if (normal != Vector2.Zero && sphere.PlattformRollingOn != rectangle)
                                 {
                                     
-                                    if(sphere.Velocity.Length() <= 20f) 
+                                    if(sphere.Velocity.Length() <= 15f) 
                                     {
                                         if(Math.Abs(normal.X) > 0)
                                         {
@@ -262,7 +261,7 @@ namespace VisualComputing2
                                         }
                                     }
 
-                                    sphere.Velocity = Vector2.Reflect(sphere.Velocity, normal) * 0.7f;
+                                    sphere.Velocity = Vector2.Reflect(sphere.Velocity, normal) * 0.5f;
                                 }
 
 
@@ -279,6 +278,18 @@ namespace VisualComputing2
             }
         }
 
+        private bool CheckLineCol(Sphere sphere, Rectangle rectangle)
+        {
+            int next = 0;
+            for (int current = 0; current < rectangle.Points.Length; current++)
+            {
+                next = current + 1;
+                if (next == rectangle.Points.Length) next = 0;
+
+                if (LineLineCol(rectangle.Points[current], rectangle.Points[next], sphere.Position, sphere.Position+new Vector2(0,sphere.Radius+2f))) return true;
+            }
+            return false;
+        }
         private Vector2 checkRectCollision(Sphere sphere, Rectangle rectangle)
         {
             int next = 0;
@@ -322,7 +333,7 @@ namespace VisualComputing2
 
             if (!LinePointCol(nearestPoint, A, B)) return false;
 
-            return Vector2.Distance(nearestPoint, circle.Position) <= circle.Radius+0.1f;
+            return Vector2.Distance(nearestPoint, circle.Position) <= circle.Radius;
 
 
         }
