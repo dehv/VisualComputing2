@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace VisualComputing2
 {
@@ -17,7 +12,7 @@ namespace VisualComputing2
         public float Mass { get; set; }
         public float Drag { get; set; }
         public float Radius { get; private set; }
-        public float Diameter() { return Radius*2; }
+        public float Diameter() { return Radius * 2; }
         public bool CanMove { get; set; }
         public bool UsesGravity { get; set; }
         public bool UsesWind { get; set; }
@@ -26,7 +21,7 @@ namespace VisualComputing2
         public Sphere(Vector2 pos, Vector2 vel, string name, float mass, float radius, bool g, bool wind, bool drag)
             : base(pos, name)
         {
-            
+
             Velocity = vel;
             Mass = mass;
             Radius = radius;
